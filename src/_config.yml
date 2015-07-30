@@ -1,0 +1,23 @@
+# Dependencies
+markdown:         redcarpet
+highlighter:      pygments
+
+# Permalinks
+permalink:        pretty
+relative_permalinks: true
+
+# Setup
+title:            'Xavier Nayrac'
+tagline:          'L{o,i}ve Code'
+description:      '<a href="https://twitter.com/lkdjiin" target="_blank">@lkdjiin</a> TDD addict, Rubyist, data scientist padawan, happy vim user, accordionist, genetic algorithm enthusiast, living in Reims, France, the city of Champagne.'
+url:              http://lkdjiin.github.com/xaviernayrac.com
+baseurl:          /xaviernayrac.com
+
+author:
+  name:           'Xavier Nayrac'
+  url:            https://twitter.com/lkdjiin
+
+paginate:         1
+
+# Custom vars
+version:          0.0.1
