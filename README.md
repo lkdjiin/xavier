@@ -1,3 +1,3 @@
-# xaviernayrac.com
+# xavier.nayrac.eu
 
-Sources of my blog.
+Sources of my english blog.
