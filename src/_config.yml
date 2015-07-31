@@ -10,8 +10,8 @@ relative_permalinks: true
 title:            'Xavier Nayrac'
 tagline:          'L{o,i}ve Code'
 description:      '<a href="https://twitter.com/lkdjiin" target="_blank">@lkdjiin</a> TDD addict, Rubyist, data scientist padawan, happy vim user, accordionist, genetic algorithm enthusiast, living in Reims, France, the city of Champagne.'
-url:              http://lkdjiin.github.com/xavier
-baseurl:          /xavier
+url:              http://xavier.nayrac.eu
+baseurl:          /
 
 author:
   name:           'Xavier Nayrac'
