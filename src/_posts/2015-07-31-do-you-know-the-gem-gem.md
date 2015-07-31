@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Do You Know The Gem Gem?
+comments: true
 ---
 
 `gem` is a well known command amongst rubyists, for a good reason:

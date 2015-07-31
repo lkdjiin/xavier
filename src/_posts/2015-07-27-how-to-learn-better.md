@@ -1,6 +1,7 @@
 ---
 layout: post
 title: How to Learn Better - The Recall Technique
+comments: true
 ---
 
 I recently attended the course 
