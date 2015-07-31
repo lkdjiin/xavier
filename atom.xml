@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
  <title>Xavier Nayrac</title>
- <link href="http://lkdjiin.github.com/xavier/atom.xml" rel="self"/>
- <link href="http://lkdjiin.github.com/xavier/"/>
- <updated>2015-07-30T16:45:31+02:00</updated>
- <id>http://lkdjiin.github.com/xavier</id>
+ <link href="http://xavier.nayrac.eu/atom.xml" rel="self"/>
+ <link href="http://xavier.nayrac.eu/"/>
+ <updated>2015-07-31T10:47:32+02:00</updated>
+ <id>http://xavier.nayrac.eu</id>
  <author>
    <name>Xavier Nayrac</name>
    <email></email>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>Better Use of the Gem Command</title>
-   <link href="http://lkdjiin.github.com/xavier/2015/07/29/better-use-gem/"/>
+   <link href="http://xavier.nayrac.eu/2015/07/29/better-use-gem/"/>
    <updated>2015-07-29T00:00:00+02:00</updated>
-   <id>http://lkdjiin.github.com/xavier/2015/07/29/better-use-gem</id>
+   <id>http://xavier.nayrac.eu/2015/07/29/better-use-gem</id>
    <content type="html">&lt;p&gt;&lt;code&gt;gem&lt;/code&gt; is a well known command amongst rubyists, for a good reason:
 it is central to the use of Ruby.
 As an example, if I want to benefit from 
@@ -185,9 +185,9 @@ feel that I&amp;#39;m going to still learn many things.&lt;/p&gt;
  
  <entry>
    <title>How to Learn Better - The Recall Technique</title>
-   <link href="http://lkdjiin.github.com/xavier/2015/07/27/how-to-learn-better/"/>
+   <link href="http://xavier.nayrac.eu/2015/07/27/how-to-learn-better/"/>
    <updated>2015-07-27T00:00:00+02:00</updated>
-   <id>http://lkdjiin.github.com/xavier/2015/07/27/how-to-learn-better</id>
+   <id>http://xavier.nayrac.eu/2015/07/27/how-to-learn-better</id>
    <content type="html">&lt;p&gt;I recently attended the course 
 &lt;a href=&quot;https://www.coursera.org/learn/learning-how-to-learn&quot;&gt;Learning how to learn&lt;/a&gt;
 from
