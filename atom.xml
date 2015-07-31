@@ -4,7 +4,7 @@
  <title>Xavier Nayrac</title>
  <link href="http://xavier.nayrac.eu/atom.xml" rel="self"/>
  <link href="http://xavier.nayrac.eu/"/>
- <updated>2015-07-31T11:29:49+02:00</updated>
+ <updated>2015-07-31T14:25:14+02:00</updated>
  <id>http://xavier.nayrac.eu</id>
  <author>
    <name>Xavier Nayrac</name>
@@ -13,10 +13,10 @@
 
  
  <entry>
-   <title>Better Use of the Gem Command</title>
-   <link href="http://xavier.nayrac.eu/2015/07/29/better-use-gem/"/>
-   <updated>2015-07-29T00:00:00+02:00</updated>
-   <id>http://xavier.nayrac.eu/2015/07/29/better-use-gem</id>
+   <title>Do You Know The Gem Gem?</title>
+   <link href="http://xavier.nayrac.eu/2015/07/31/do-you-know-the-gem-gem/"/>
+   <updated>2015-07-31T00:00:00+02:00</updated>
+   <id>http://xavier.nayrac.eu/2015/07/31/do-you-know-the-gem-gem</id>
    <content type="html">&lt;p&gt;&lt;code&gt;gem&lt;/code&gt; is a well known command amongst rubyists, for a good reason:
 it is central to the use of Ruby.
 As an example, if I want to benefit from 
