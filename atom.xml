@@ -4,7 +4,7 @@
  <title>Xavier Nayrac</title>
  <link href="http://xavier.nayrac.eu/atom.xml" rel="self"/>
  <link href="http://xavier.nayrac.eu/"/>
- <updated>2015-07-31T15:15:52+02:00</updated>
+ <updated>2015-08-03T14:31:53+02:00</updated>
  <id>http://xavier.nayrac.eu</id>
  <author>
    <name>Xavier Nayrac</name>
@@ -14,180 +14,9 @@
  
  <entry>
    <title>Do You Know The Gem Gem?</title>
-   <link href="http://xavier.nayrac.eu/2015/07/31/do-you-know-the-gem-gem/"/>
-   <updated>2015-07-31T00:00:00+02:00</updated>
-   <id>http://xavier.nayrac.eu/2015/07/31/do-you-know-the-gem-gem</id>
-   <content type="html">&lt;p&gt;&lt;code&gt;gem&lt;/code&gt; is a well known command amongst rubyists, for a good reason:
-it is central to the use of Ruby.
-As an example, if I want to benefit from 
-&lt;a href=&quot;https://github.com/michaeldv/awesome_print&quot;&gt;awesome print&lt;/a&gt; in my irb session,
-I will install it like this:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ gem install awesome_print
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Likewise, did you ever see a Rails app without a Gemfile?&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;source&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;https://rubygems.org&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;ruby&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;2.0.0&amp;#39;&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;rails&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;4.0.0&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;pg&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Actually if you have only 3 days of Ruby in your life, you can use &lt;code&gt;gem&lt;/code&gt; like
-a boss. Do you? I don&amp;#39;t. Not yet.&lt;/p&gt;
-
-&lt;p&gt;Indeed I use Ruby every single day since 5 or 6 years. And I had never written
-&lt;code&gt;gem --help&lt;/code&gt;. Never. Not once.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ gem --help
-RubyGems is a sophisticated package manager for Ruby.  This is a
-...
-  Further help:
-    gem help commands            list all &amp;#39;gem&amp;#39; commands
-    gem help examples            show some examples of usage
-    gem help gem_dependencies    gem dependencies file guide
-    gem help platforms           gem platforms guide
-    gem help &amp;lt;COMMAND&amp;gt;           show help on COMMAND
-    gem server                   present a web page at
-...
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;I think there is a lot to read. So, here is a quick tour of the many possibilities of &lt;code&gt;gem&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2&gt;gem help commands&lt;/h2&gt;
-
-&lt;p&gt;Let&amp;#39;s start by looking at the different commands:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ gem help commands
-GEM commands are:
-
-    build                  Build a gem from a gemspec
-    cert                   Manage RubyGems certificates and signing settings
-...
-    wrappers               Re run generation of environment wrappers for gems.
-    yank                   Remove a pushed gem from the index
-...
-Commands may be abbreviated, so long as they are unambiguous.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;I have abbreviated the previous output, because there are &lt;strong&gt;33 commands&lt;/strong&gt;.
-I really had no clue of such a big number of commands. Here is the list:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;build&lt;/li&gt;
-&lt;li&gt;cert&lt;/li&gt;
-&lt;li&gt;check&lt;/li&gt;
-&lt;li&gt;cleanup&lt;/li&gt;
-&lt;li&gt;contents&lt;/li&gt;
-&lt;li&gt;dependency&lt;/li&gt;
-&lt;li&gt;environment&lt;/li&gt;
-&lt;li&gt;fetch&lt;/li&gt;
-&lt;li&gt;generate_index&lt;/li&gt;
-&lt;li&gt;help&lt;/li&gt;
-&lt;li&gt;install&lt;/li&gt;
-&lt;li&gt;list&lt;/li&gt;
-&lt;li&gt;lock&lt;/li&gt;
-&lt;li&gt;mirror&lt;/li&gt;
-&lt;li&gt;open&lt;/li&gt;
-&lt;li&gt;outdated&lt;/li&gt;
-&lt;li&gt;owner&lt;/li&gt;
-&lt;li&gt;pristine&lt;/li&gt;
-&lt;li&gt;push&lt;/li&gt;
-&lt;li&gt;query&lt;/li&gt;
-&lt;li&gt;rdoc&lt;/li&gt;
-&lt;li&gt;regenerate_binstubs&lt;/li&gt;
-&lt;li&gt;search&lt;/li&gt;
-&lt;li&gt;server&lt;/li&gt;
-&lt;li&gt;sources&lt;/li&gt;
-&lt;li&gt;specification&lt;/li&gt;
-&lt;li&gt;stale&lt;/li&gt;
-&lt;li&gt;uninstall&lt;/li&gt;
-&lt;li&gt;unpack&lt;/li&gt;
-&lt;li&gt;update&lt;/li&gt;
-&lt;li&gt;which&lt;/li&gt;
-&lt;li&gt;wrappers&lt;/li&gt;
-&lt;li&gt;yank&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Personnaly I already used &lt;code&gt;build&lt;/code&gt;, &lt;code&gt;cleanup&lt;/code&gt;, &lt;code&gt;install&lt;/code&gt;, &lt;code&gt;list&lt;/code&gt;,
-&lt;code&gt;push&lt;/code&gt;, &lt;code&gt;uninstall&lt;/code&gt;, &lt;code&gt;update&lt;/code&gt; and that&amp;#39;s it! 7 commands on 33.
-I am off the mark.&lt;/p&gt;
-
-&lt;p&gt;Looking closer to the output of &lt;code&gt;gem help commands&lt;/code&gt;, I realize that one can
-abbreviate each command:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ gem install my_gem
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;thus will be identical to:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ gem i my_gem
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;I really like this idea.&lt;/p&gt;
-
-&lt;h2&gt;gem help a_command&lt;/h2&gt;
-
-&lt;p&gt;One can get some help for a specific command.
-For example, with &lt;code&gt;gem help install&lt;/code&gt; I learn that those options to not generate
-the documentation:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;--no-rdoc
---no-ri
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;are deprecated! Now one can use:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;-N, --no-document
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;gem help examples&lt;/h2&gt;
-
-&lt;p&gt;Obviously &lt;code&gt;gem help examples&lt;/code&gt; displays several examples ;)
-Like how to install a specific version of a gem:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ gem install rake --version 0.3.1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;I don&amp;#39;t know why but I never remember this syntax
-Now I would not need to ask to a search engine.
-I content myself with &lt;code&gt;geme help examples&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2&gt;gem server&lt;/h2&gt;
-
-&lt;p&gt;Here is a little curiosity: &lt;code&gt;gem server&lt;/code&gt; provides an html page (see it at
-&lt;code&gt;localhost:8808&lt;/code&gt;) with the list of all installed gems.
-This seems a little gadget, especially that one can have such information quickly on the command line with &lt;code&gt;list&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ gem list
-
-*** LOCAL GEMS ***
-
-awesome_print (1.6.1)
-bigdecimal (1.2.6)
-bundler (1.7.9)
-...
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Then, with &lt;code&gt;gem help list&lt;/code&gt;, I found a way to get details about installed gems:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ gem list -d
-
-*** LOCAL GEMS ***
-
-awesome_print (1.6.1)
-    Author: Michael Dvorkin
-    Homepage: http://github.com/michaeldv/awesome_print
-    License: MIT
-    Installed at: /home/xavier/.rvm/gems/ruby-2.2.0
-
-    Pretty print Ruby objects with proper indentation and colors
-
-bigdecimal (1.2.6)
-    Authors: Kenta Murata, Zachary Scott, Shigeo Kobayashi
-    Homepage: http://www.ruby-lang.org
-    Installed at (default): /home/xavier/.rvm/rubies/ruby-2.2.0/lib/ruby/gems/2.2.0
-
-Arbitrary-precision decimal floating-point number library.
-
-...
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Need more work…&lt;/h2&gt;
-
-&lt;p&gt;I didn&amp;#39;t finish to read this documentation. It looks promising to me, and I
-feel that I&amp;#39;m going to still learn many things.&lt;/p&gt;
-
-&lt;p&gt;See you soon.&lt;/p&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>Better Use of the Gem Command</title>
-   <link href="http://xavier.nayrac.eu/2015/07/29/better-use-gem/"/>
-   <updated>2015-07-29T00:00:00+02:00</updated>
-   <id>http://xavier.nayrac.eu/2015/07/29/better-use-gem</id>
+   <link href="http://xavier.nayrac.eu/2015/08/03/do-you-know-the-gem-gem/"/>
+   <updated>2015-08-03T00:00:00+02:00</updated>
+   <id>http://xavier.nayrac.eu/2015/08/03/do-you-know-the-gem-gem</id>
    <content type="html">&lt;p&gt;&lt;code&gt;gem&lt;/code&gt; is a well known command amongst rubyists, for a good reason:
 it is central to the use of Ruby.
 As an example, if I want to benefit from 
@@ -356,9 +185,9 @@ feel that I&amp;#39;m going to still learn many things.&lt;/p&gt;
  
  <entry>
    <title>How to Learn Better - The Recall Technique</title>
-   <link href="http://xavier.nayrac.eu/2015/07/27/how-to-learn-better/"/>
-   <updated>2015-07-27T00:00:00+02:00</updated>
-   <id>http://xavier.nayrac.eu/2015/07/27/how-to-learn-better</id>
+   <link href="http://xavier.nayrac.eu/2015/08/02/how-to-learn-better/"/>
+   <updated>2015-08-02T00:00:00+02:00</updated>
+   <id>http://xavier.nayrac.eu/2015/08/02/how-to-learn-better</id>
    <content type="html">&lt;p&gt;I recently attended the course 
 &lt;a href=&quot;https://www.coursera.org/learn/learning-how-to-learn&quot;&gt;Learning how to learn&lt;/a&gt;
 from
