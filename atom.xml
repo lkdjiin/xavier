@@ -4,13 +4,65 @@
  <title>Xavier Nayrac</title>
  <link href="http://xavier.nayrac.eu/atom.xml" rel="self"/>
  <link href="http://xavier.nayrac.eu/"/>
- <updated>2015-08-03T14:31:53+02:00</updated>
+ <updated>2015-08-20T22:43:18+02:00</updated>
  <id>http://xavier.nayrac.eu</id>
  <author>
    <name>Xavier Nayrac</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>Find the Size of an Arduino Program</title>
+   <link href="http://xavier.nayrac.eu/2015/08/20/find-the-size-of-an-arduino-program/"/>
+   <updated>2015-08-20T00:00:00+02:00</updated>
+   <id>http://xavier.nayrac.eu/2015/08/20/find-the-size-of-an-arduino-program</id>
+   <content type="html">&lt;p&gt;If I want to find the size and the memory need of an Arduino program, how do I
+do that? And why would I know their size?&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/images/640-arduino-avr.jpg&quot; class=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;Where is the program hidden?&lt;/h2&gt;
+
+&lt;p&gt;The program, in elf format, is located in a hidden folder. You may find that its
+size is quite impressive. This is not its final size into the Arduino.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\l&lt;/span&gt;s -lh .build/uno/firmware.elf 
+-rwxr-xr-x &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; xavier xavier 40K août  &lt;span class=&quot;m&quot;&gt;19&lt;/span&gt; 21:01 .build/uno/firmware.elf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;em&gt;A hidden folder is a folder whose name starts with a dot. One say «hidden»
+because on Linux and OS X they are invisible by default.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2&gt;How to find the memory needs of an Arduino program&lt;/h2&gt;
+
+&lt;p&gt;We are going to use the program &lt;code&gt;avr-size&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;avr-size -dC .build/uno/firmware.elf 
+AVR Memory Usage
+----------------
+Device: Unknown
+
+Program:    &lt;span class=&quot;m&quot;&gt;2786&lt;/span&gt; bytes
+&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;.text + .data + .bootloader&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+Data:         &lt;span class=&quot;m&quot;&gt;34&lt;/span&gt; bytes
+&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;.data + .bss + .noinit&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Here I&amp;#39;m using 34 bytes of RAM, for a total of 2786 bytes into the
+microcontroller.&lt;/p&gt;
+
+&lt;p&gt;The switch &lt;code&gt;-d&lt;/code&gt; gives us the values in decimal. The switch &lt;code&gt;-C&lt;/code&gt; specify the
+report&amp;#39;s format from &lt;code&gt;avr-size&lt;/code&gt;. See &lt;code&gt;avr-size --help&lt;/code&gt; for other formats.&lt;/p&gt;
+
+&lt;h2&gt;Why&lt;/h2&gt;
+
+&lt;p&gt;ATMEL microcontrollers have different size of memory (for the program and for
+the RAM). For example the ATtiny13 has 1 Kb for the program and 64 bytes of
+RAM, while the ATtiny85 has 8 Kb for the program and 512 bytes for the RAM.&lt;/p&gt;
+
+&lt;p&gt;For those programs who are intended to leave the Arduino platform, to end in a
+microcontroller, knowing the memory size helps to know if it&amp;#39;s interesting
+to spend time and energy to optimise these programs.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Do You Know The Gem Gem?</title>
