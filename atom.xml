@@ -4,13 +4,41 @@
  <title>Xavier Nayrac</title>
  <link href="http://xavier.nayrac.eu/atom.xml" rel="self"/>
  <link href="http://xavier.nayrac.eu/"/>
- <updated>2015-08-20T22:43:18+02:00</updated>
+ <updated>2015-09-28T14:57:07+02:00</updated>
  <id>http://xavier.nayrac.eu</id>
  <author>
    <name>Xavier Nayrac</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>How to implement a well known algorithm</title>
+   <link href="http://xavier.nayrac.eu/2015/09/11/how-to-implement-a-well-known-algorithm/"/>
+   <updated>2015-09-11T14:49:00+02:00</updated>
+   <id>http://xavier.nayrac.eu/2015/09/11/how-to-implement-a-well-known-algorithm</id>
+   <content type="html">&lt;p&gt;When you are implementing a «well known» algorithm you really should strictly
+follow the algorithm&amp;#39;s steps as they are.&lt;/p&gt;
+
+&lt;p&gt;Do not start to modify this or that part.&lt;/p&gt;
+
+&lt;p&gt;Or even worse, do not try to optimize anything.&lt;/p&gt;
+
+&lt;p&gt;If it is called a «well known» algorithm, there must a good reason for that.&lt;/p&gt;
+
+&lt;p&gt;It&amp;#39;s surely that lots and lots of people have run into trouble on this algorithm.&lt;/p&gt;
+
+&lt;p&gt;It&amp;#39;s likely that an army of developers have worked on it.&lt;/p&gt;
+
+&lt;p&gt;Sometimes since 40 years.&lt;/p&gt;
+
+&lt;p&gt;A «well known» algorithm is good enough for you.&lt;/p&gt;
+
+&lt;p&gt;Implement it as it is.&lt;/p&gt;
+
+&lt;p&gt;Save your time.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Find the Size of an Arduino Program</title>
