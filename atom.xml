@@ -4,13 +4,77 @@
  <title>Xavier Nayrac</title>
  <link href="http://xavier.nayrac.eu/atom.xml" rel="self"/>
  <link href="http://xavier.nayrac.eu/"/>
- <updated>2015-09-28T14:57:07+02:00</updated>
+ <updated>2015-10-06T17:25:29+02:00</updated>
  <id>http://xavier.nayrac.eu</id>
  <author>
    <name>Xavier Nayrac</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>How many times a day do I sit down at my desk</title>
+   <link href="http://xavier.nayrac.eu/2015/10/06/how-many-times-a-day-do-i-sit-down-at-my-desk/"/>
+   <updated>2015-10-06T00:00:00+02:00</updated>
+   <id>http://xavier.nayrac.eu/2015/10/06/how-many-times-a-day-do-i-sit-down-at-my-desk</id>
+   <content type="html">&lt;p&gt;Since September 21, I record every day when I&amp;#39;m (and when I&amp;#39;m not) seated at
+my desk. I&amp;#39;m going to conduct this, somewhat weird, experiment during seven or
+eight weeks. I would like to known how many times a day do I sit down at my
+desk, and also to see if there is some recurring patterns.
+I record those data with an arduino linked to a
+&lt;a href=&quot;http://www.interlinkelectronics.com/FSR406.php&quot;&gt;Force Sensing Resistor&lt;/a&gt;.
+The &lt;a href=&quot;https://github.com/lkdjiin/sit-down&quot;&gt;code for the arduino&lt;/a&gt;
+(along with some photos) is available on Github.&lt;/p&gt;
+
+&lt;p&gt;This blog post is a debriefing of the first week of data recording.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/images/raw.jpg&quot; class=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The pressure is recorded with a scale varying from 0 to 1023.
+Zero being the absence of pressure and 1023 being the maximum pressure that the
+device can measure up. I take a measure every 30 seconds.&lt;/p&gt;
+
+&lt;p&gt;On the preceding plot, we can see the raw data for the week. They represent the
+whole scale of values. Depending how I&amp;#39;m sitting the device record different
+values. The blue points at bottom clearly indicate when I am seated.
+After a few trials and errors, I found that 20 is a good threshold to separate
+raw data in two categories: &lt;em&gt;seated&lt;/em&gt; and &lt;em&gt;not seated&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Here is the result for the first week:&lt;/p&gt;
+
+&lt;table&gt;
+&lt;tr&gt;
+  &lt;th&gt;Day&lt;/th&gt;
+  &lt;th&gt;Times seated&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;2015-09-21&lt;/td&gt;&lt;td&gt;32&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;2015-09-22&lt;/td&gt;&lt;td&gt;30&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;2015-09-23&lt;/td&gt;&lt;td&gt;33&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;2015-09-24&lt;/td&gt;&lt;td&gt;33&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;2015-09-25&lt;/td&gt;&lt;td&gt;40&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;2015-09-26&lt;/td&gt;&lt;td&gt;26&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;2015-09-27&lt;/td&gt;&lt;td&gt;26&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;p&gt;One can visualize the processed data in an interesting way, for example the
+Monday ; maroon areas represent when I am seated at my desk (the duration):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/images/visualize-day.png&quot; class=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;One can leverage this type of visualization to look at the whole week.
+It could be a mean to identify patterns. But this week was special for me
+(&lt;em&gt;I worked also during the weekend, I normally never do this&lt;/em&gt;) so I&amp;#39;m going to
+wait for more data before to conclude anything.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/images/visualize-week.png&quot; class=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I will surely write a following, more technical, post to show the R code to
+process the data and for the plots.&lt;/p&gt;
+
+&lt;p&gt;If you have a similar project (in your head or in the real world) I would
+like to hear about it, so leave your comment.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>How to implement a well known algorithm</title>
