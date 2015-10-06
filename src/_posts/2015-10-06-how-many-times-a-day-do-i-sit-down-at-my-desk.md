@@ -4,10 +4,10 @@ title: "How many times a day do I sit down at my desk"
 comments: true
 ---
 
-Since september 21, I record every day when I'm (and when I'm not) seated at
+Since September 21, I record every day when I'm (and when I'm not) seated at
 my desk. I'm going to conduct this, somewhat weird, experiment during seven or
 eight weeks. I would like to known how many times a day do I sit down at my
-desk, and also to see if there is some recuring patterns.
+desk, and also to see if there is some recurring patterns.
 I record those data with an arduino linked to a
 [Force Sensing Resistor](http://www.interlinkelectronics.com/FSR406.php).
 The [code for the arduino](https://github.com/lkdjiin/sit-down)
@@ -29,26 +29,29 @@ raw data in two categories: *seated* and *not seated*.
 
 Here is the result for the first week:
 
-
-    | Day        | Times seated |
-    | ---------- | ------------ |
-    | 2015-09-21 | 32           |
-    | 2015-09-22 | 30           |
-    | 2015-09-23 | 33           |
-    | 2015-09-24 | 33           |
-    | 2015-09-25 | 40           |
-    | 2015-09-26 | 26           |
-    | 2015-09-27 | 26           |
+<table>
+<tr>
+  <th>Day</th>
+  <th>Times seated</th>
+</tr>
+<tr><td>2015-09-21</td><td>32</td></tr>
+<tr><td>2015-09-22</td><td>30</td></tr>
+<tr><td>2015-09-23</td><td>33</td></tr>
+<tr><td>2015-09-24</td><td>33</td></tr>
+<tr><td>2015-09-25</td><td>40</td></tr>
+<tr><td>2015-09-26</td><td>26</td></tr>
+<tr><td>2015-09-27</td><td>26</td></tr>
+</table>
 
 One can visualize the processed data in an interesting way, for example the
-monday ; marroon areas represents when I am seated at my desk (the duration):
+Monday ; maroon areas represent when I am seated at my desk (the duration):
 
 <img src="{{site.baseurl}}/public/images/visualize-day.png" class="" />
 
 One can leverage this type of visualization to look at the whole week.
 It could be a mean to identify patterns. But this week was special for me
 (*I worked also during the weekend, I normally never do this*) so I'm going to
-wait for more data before concluding anything.
+wait for more data before to conclude anything.
 
 <img src="{{site.baseurl}}/public/images/visualize-week.png" class="" />
 
