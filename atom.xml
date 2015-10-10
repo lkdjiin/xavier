@@ -4,13 +4,66 @@
  <title>Xavier Nayrac</title>
  <link href="http://xavier.nayrac.eu/atom.xml" rel="self"/>
  <link href="http://xavier.nayrac.eu/"/>
- <updated>2015-10-10T14:44:20+02:00</updated>
+ <updated>2015-10-10T19:15:13+02:00</updated>
  <id>http://xavier.nayrac.eu</id>
  <author>
    <name>Xavier Nayrac</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>A Quine in R</title>
+   <link href="http://xavier.nayrac.eu/2015/10/10/a-quine-in-r/"/>
+   <updated>2015-10-10T00:00:00+02:00</updated>
+   <id>http://xavier.nayrac.eu/2015/10/10/a-quine-in-r</id>
+   <content type="html">&lt;p&gt;I just read the article
+&lt;a href=&quot;http://blog.chaps.io/2015/10/01/generating-quines-in-ruby.html&quot;&gt;generating Quines in Ruby&lt;/a&gt;
+and I really enjoyed it. I wanted to do a quine myself in R.&lt;/p&gt;
+
+&lt;p&gt;So, what&amp;#39;s a quine? A quine is a self reproducing software. It must meet
+two conditions:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;It produces its source code as its unique output.&lt;/li&gt;
+&lt;li&gt;It doesn&amp;#39;t take any input (thus excluding the ability to read from a file).&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Here is my solution in R. It displays its source code on standard output when
+executed. It is mostly inspired by the C code from the original article:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;src &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;\nescape &amp;lt;- function(x) {\n    cat(&amp;#39;\&amp;quot;&amp;#39;)\n    for(e in strsplit(x, &amp;#39;&amp;#39;)[[1]]) {\n        if(e == &amp;#39;\\n&amp;#39;) {\n            cat(&amp;#39;\\\\n&amp;#39;)\n        } else if(e == &amp;#39;\\\\&amp;#39;) {\n            cat(&amp;#39;\\\\\\\\&amp;#39;)\n        } else if(e == &amp;#39;\&amp;quot;&amp;#39;) {\n            cat(&amp;#39;\\\\\&amp;quot;&amp;#39;)\n        } else {\n            cat(e)\n        }\n    }\n    cat(&amp;#39;\&amp;quot;&amp;#39;)\n}\ncat(\&amp;quot;src &amp;lt;-\&amp;quot;)\nescape(src)\nwriteLines(src)&amp;quot;&lt;/span&gt;
+escape &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kp&quot;&gt;cat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;&amp;quot;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;kr&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;e &lt;span class=&quot;kr&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;strsplit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]])&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;e &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;\n&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;kp&quot;&gt;cat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;\\n&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;e &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;\\&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;kp&quot;&gt;cat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;\\\\&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;e &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;&amp;quot;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;kp&quot;&gt;cat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;\\&amp;quot;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;kp&quot;&gt;cat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;e&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kp&quot;&gt;cat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;&amp;quot;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;cat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;src &amp;lt;-&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+escape&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;src&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;writeLines&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;src&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;As noted in the original article, it&amp;#39;s a good practice to test one&amp;#39;s own
+solution with &lt;code&gt;diff&lt;/code&gt;. If the output of your quine and its source are identical,
+&lt;code&gt;diff&lt;/code&gt; will not produce any output, else, happy debugging ;)&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;diff -u quine.r &amp;lt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Rscript quine.r&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;My solution is much longer than the one on
+&lt;a href=&quot;http://rosettacode.org/wiki/Quine#R&quot;&gt;rosetta code&lt;/a&gt;
+for example. But who care&amp;#39;s? It was funny to do and it was a good little puzzle
+to solve. And I even learn a new function of R (&lt;code&gt;writeLines&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;So it&amp;#39;s up to you now. Let me know if you write a quine, whatever the language ;)&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>How many times a day do I sit down at my desk</title>
