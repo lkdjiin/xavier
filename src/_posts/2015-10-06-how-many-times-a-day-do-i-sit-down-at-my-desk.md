@@ -23,7 +23,7 @@ device can measure up. I take a measure every 30 seconds.
 
 On the preceding plot, we can see the raw data for the week. They represent the
 whole scale of values. Depending how I'm sitting the device record different
-values. The blue points at bottom clearly indicate when I am seated.
+values. The blue points at bottom clearly indicate when I am not seated.
 After a few trials and errors, I found that 20 is a good threshold to separate
 raw data in two categories: *seated* and *not seated*.
 
