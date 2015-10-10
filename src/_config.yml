@@ -9,7 +9,7 @@ relative_permalinks: true
 # Setup
 title:            'Xavier Nayrac'
 tagline:          'L{o,i}ve Code'
-description:      '<a href="https://twitter.com/lkdjiin" target="_blank">@lkdjiin</a> TDD addict, Rubyist, data scientist padawan, happy vim user, accordionist, genetic algorithm enthusiast, living in Reims, France, the city of Champagne.'
+description:      '<a href="https://twitter.com/lkdjiin" target="_blank">@lkdjiin</a> TDD addict, Rubyist, data scientist, happy vim user, accordionist, genetic algorithm enthusiast, living in Reims, France, the city of Champagne.'
 url:              http://xavier.nayrac.eu
 baseurl:          ''
 
