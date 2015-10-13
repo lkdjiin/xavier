@@ -11,7 +11,7 @@
 
   <title>
     
-      How to Learn Better - The Recall Technique &middot; Xavier Nayrac
+      A Quine in R - The Return &middot; Xavier Nayrac
     
   </title>
 
@@ -112,57 +112,49 @@
 
     <div class="content container">
       <div class="post">
-  <h1 class="post-title">How to Learn Better - The Recall Technique</h1>
-  <span class="post-date">02 Aug 2015</span>
-  <p>I recently attended the course 
-<a href="https://www.coursera.org/learn/learning-how-to-learn">Learning how to learn</a>
-from
-<a href="https://www.coursera.org/ucsd">San Diego university, Californie</a>
-on <a href="https://www.coursera.org/courses">Coursera</a>.</p>
+  <h1 class="post-title">A Quine in R - The Return</h1>
+  <span class="post-date">13 Oct 2015</span>
+  <p>In the previous post <a href="http://xavier.nayrac.eu/2015/10/10/a-quine-in-r/">A Quine In R</a>
+I presented a <a href="https://en.wikipedia.org/wiki/Quine_%28computing%29">quine</a>
+in the R programming language. The code was a little bit long for the task, 19 lines, mainly
+compared to the Ruby code from the original post:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">puts </span><span class="se">\&quot;</span><span class="s2">src = </span><span class="se">\&quot;</span><span class="s2"> + src.inspect + src&quot;</span>
+<span class="nb">puts</span> <span class="s2">&quot;src = &quot;</span> <span class="o">+</span> <span class="n">src</span><span class="o">.</span><span class="n">inspect</span> <span class="o">+</span> <span class="n">src</span>
+</code></pre></div>
+<p>In Ruby, the code is short thanks to the method <code>inspect</code>, who automatically
+escape the non printable characters and the quotes:</p>
+<div class="highlight"><pre><code class="language-irb" data-lang="irb"><span class="gp">&gt;&gt; </span><span class="n">foo</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">puts </span><span class="se">\&quot;</span><span class="s2">src</span><span class="se">\&quot;</span><span class="s2">&quot;</span>
+<span class="go">&quot;\nputs \&quot;src\&quot;&quot;</span>
+<span class="gp">&gt;&gt; </span><span class="n">foo</span><span class="o">.</span><span class="n">inspect</span>
+<span class="go">&quot;\&quot;\\nputs \\\&quot;src\\\&quot;\&quot;&quot;</span>
+</code></pre></div>
+<p>Naturally I searched for a similar function in R, at least for the strings.
+I gave up after fifteen minutes of unsuccessful search, and I wrote
+<a href="http://xavier.nayrac.eu/2015/10/10/a-quine-in-r/">the 19 lines of code</a>
+from the previous post.</p>
 
-<p>I was looking for some tips and tricks to learn better, ie faster and easier.
-I learned a lot!</p>
+<p>At this moment, Hadley Wickham kindly suggested to use the function
+<code>encodeString</code>. That&#39;s what I had been looking for, without finding it.
+With the help of this function, a quine in R is really shorter. Not as
+short as the Ruby version, but, anyway, it&#39;s shorter:</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">src <span class="o">&lt;-</span> <span class="s">&quot;\nwriteLines(c(paste(\&quot;src &lt;-\&quot;, encodeString(src, quote=&#39;\&quot;&#39;)), src))&quot;</span>
 
-<p>Professors Barbara Oakley and Terrence Sejnowski do an excellent job.
-I will share with you some things I learned in the course. And I&#39;m going to
-start today with the <strong>recall technique</strong>.</p>
+<span class="kp">writeLines</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="kp">paste</span><span class="p">(</span><span class="s">&quot;src &lt;-&quot;</span><span class="p">,</span> <span class="kp">encodeString</span><span class="p">(</span>src<span class="p">,</span> quote<span class="o">=</span><span class="s">&#39;&quot;&#39;</span><span class="p">)),</span> src<span class="p">))</span>
+</code></pre></div>
+<p>I like this version, so I add it on <a href="http://rosettacode.org/wiki/Quine#R">rosettacode.org</a>.</p>
 
-<h2>What</h2>
+<p>Like I said previously, it&#39;s good to use <code>diff</code> to assure yourself that you
+really wrote a quine ;)</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">diff -u quine2.r &lt;<span class="o">(</span>Rscript quine2.r<span class="o">)</span>
+</code></pre></div>
+<p>And the result is:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ Rscript quine3.r
+src &lt;- &quot;\nwriteLines(c(paste(\&quot;src &lt;-\&quot;, encodeString(src, quote=&#39;\&quot;&#39;)), src))&quot;
 
-<p>The recall technique is to do a real effort, after a working block, to remember
-the main points addressed during this working block.</p>
-
-<p>It&#39;s nothing more than that, really. But this simple trick is going to boost your
-capacity to memorize, by anchoring more deeply all your fresh knowledge into
-your memory.</p>
-
-<p>So, what is that thing I called a <strong>working block</strong>? It could be anything:
-a 20 minutes class, 30 minutes of reading, a lecture of 45 minutes, an hour
-debug session, a 3 hours meeting, etc.</p>
-
-<h2>Why</h2>
-
-<p>If one does nothing to anchor in one&#39;s brain the information learned during a
-working block (especially if it was theory), these ones will quickly disappear.
-This is a natural phenomenon: the information will be cleared if nothing is done
-to retain them.</p>
-
-<p>There is another thing where the recall technique could be of some help: to avoid the illusions of competence (the false sensation to have learned something), focusing on what we have poorly learned.</p>
-
-<h2>How</h2>
-
-<p>The best implementation I have found is to take (no more than) a minute at the
-end of a working block to write down the main points. It can be 2 or 3
-sentences, a bullet list, a schema, or anything you could think of.</p>
-
-<p>Two remarks: (i) Taking notes during the working block doesn&#39;t exempt you to implement the recall technique, (ii) Thinking about the few main points is not enough, you really have to write them down.</p>
-
-<p><strong>With this very simple habit you really can learn faster and simpler.</strong></p>
-
-<p>See you soon.</p>
-
+writeLines(c(paste(&quot;src &lt;-&quot;, encodeString(src, quote=&#39;&quot;&#39;)), src))
+</code></pre></div>
   <blockquote> Thanks for reading. If you liked this post, you can
-<a href="https://twitter.com/intent/tweet?url=http://xavier.nayrac.eu/2015/08/02/how-to-learn-better/&text=How to Learn Better - The Recall Technique&via=lkdjiin" 
+<a href="https://twitter.com/intent/tweet?url=http://xavier.nayrac.eu/2015/10/13/a-quine-n-r-the-return/&text=A Quine in R - The Return&via=lkdjiin" 
    target="_blank">
   share it with your followers</a> 
 or even
@@ -178,15 +170,6 @@ or even
     
       <li>
         <h3>
-          <a href="/2015/10/13/a-quine-n-r-the-return/">
-            A Quine in R - The Return
-            <small>13 Oct 2015</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
           <a href="/2015/10/10/a-quine-in-r/">
             A Quine in R
             <small>10 Oct 2015</small>
@@ -199,6 +182,15 @@ or even
           <a href="/2015/10/06/how-many-times-a-day-do-i-sit-down-at-my-desk/">
             How many times a day do I sit down at my desk
             <small>06 Oct 2015</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2015/09/11/how-to-implement-a-well-known-algorithm/">
+            How to implement a well known algorithm
+            <small>11 Sep 2015</small>
           </a>
         </h3>
       </li>

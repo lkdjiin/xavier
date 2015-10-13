@@ -4,13 +4,59 @@
  <title>Xavier Nayrac</title>
  <link href="http://xavier.nayrac.eu/atom.xml" rel="self"/>
  <link href="http://xavier.nayrac.eu/"/>
- <updated>2015-10-10T19:15:13+02:00</updated>
+ <updated>2015-10-13T15:02:09+02:00</updated>
  <id>http://xavier.nayrac.eu</id>
  <author>
    <name>Xavier Nayrac</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>A Quine in R - The Return</title>
+   <link href="http://xavier.nayrac.eu/2015/10/13/a-quine-n-r-the-return/"/>
+   <updated>2015-10-13T00:00:00+02:00</updated>
+   <id>http://xavier.nayrac.eu/2015/10/13/a-quine-n-r-the-return</id>
+   <content type="html">&lt;p&gt;In the previous post &lt;a href=&quot;http://xavier.nayrac.eu/2015/10/10/a-quine-in-r/&quot;&gt;A Quine In R&lt;/a&gt;
+I presented a &lt;a href=&quot;https://en.wikipedia.org/wiki/Quine_%28computing%29&quot;&gt;quine&lt;/a&gt;
+in the R programming language. The code was a little bit long for the task, 19 lines, mainly
+compared to the Ruby code from the original post:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;src&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;puts &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&amp;quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;src = &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&amp;quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; + src.inspect + src&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;src = &amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;inspect&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;In Ruby, the code is short thanks to the method &lt;code&gt;inspect&lt;/code&gt;, who automatically
+escape the non printable characters and the quotes:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-irb&quot; data-lang=&quot;irb&quot;&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;foo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;puts &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&amp;quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&amp;quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;&amp;quot;\nputs \&amp;quot;src\&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;inspect&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;&amp;quot;\&amp;quot;\\nputs \\\&amp;quot;src\\\&amp;quot;\&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Naturally I searched for a similar function in R, at least for the strings.
+I gave up after fifteen minutes of unsuccessful search, and I wrote
+&lt;a href=&quot;http://xavier.nayrac.eu/2015/10/10/a-quine-in-r/&quot;&gt;the 19 lines of code&lt;/a&gt;
+from the previous post.&lt;/p&gt;
+
+&lt;p&gt;At this moment, Hadley Wickham kindly suggested to use the function
+&lt;code&gt;encodeString&lt;/code&gt;. That&amp;#39;s what I had been looking for, without finding it.
+With the help of this function, a quine in R is really shorter. Not as
+short as the Ruby version, but, anyway, it&amp;#39;s shorter:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;src &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;\nwriteLines(c(paste(\&amp;quot;src &amp;lt;-\&amp;quot;, encodeString(src, quote=&amp;#39;\&amp;quot;&amp;#39;)), src))&amp;quot;&lt;/span&gt;
+
+&lt;span class=&quot;kp&quot;&gt;writeLines&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;paste&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;src &amp;lt;-&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;encodeString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;src&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; quote&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;&amp;quot;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt; src&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;I like this version, so I add it on &lt;a href=&quot;http://rosettacode.org/wiki/Quine#R&quot;&gt;rosettacode.org&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Like I said previously, it&amp;#39;s good to use &lt;code&gt;diff&lt;/code&gt; to assure yourself that you
+really wrote a quine ;)&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;diff -u quine2.r &amp;lt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Rscript quine2.r&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;And the result is:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ Rscript quine3.r
+src &amp;lt;- &amp;quot;\nwriteLines(c(paste(\&amp;quot;src &amp;lt;-\&amp;quot;, encodeString(src, quote=&amp;#39;\&amp;quot;&amp;#39;)), src))&amp;quot;
+
+writeLines(c(paste(&amp;quot;src &amp;lt;-&amp;quot;, encodeString(src, quote=&amp;#39;&amp;quot;&amp;#39;)), src))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+ </entry>
  
  <entry>
    <title>A Quine in R</title>

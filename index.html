@@ -95,6 +95,10 @@
           
         
       
+        
+          
+        
+      
 
       <!-- <a class="sidebar-nav-item" href="/archive/v0.0.1.zip">Download</a> -->
       <!-- <a class="sidebar-nav-item" href="">GitHub project</a> -->
@@ -111,59 +115,52 @@
   
   <div class="post">
     <h1 class="post-title">
-      <a href="/2015/10/10/a-quine-in-r/">
-        A Quine in R
+      <a href="/2015/10/13/a-quine-n-r-the-return/">
+        A Quine in R - The Return
       </a>
     </h1>
 
-    <span class="post-date">10 Oct 2015</span>
+    <span class="post-date">13 Oct 2015</span>
 
-    <p>I just read the article
-<a href="http://blog.chaps.io/2015/10/01/generating-quines-in-ruby.html">generating Quines in Ruby</a>
-and I really enjoyed it. I wanted to do a quine myself in R.</p>
-
-<p>So, what&#39;s a quine? A quine is a self reproducing software. It must meet
-two conditions:</p>
-
-<ol>
-<li>It produces its source code as its unique output.</li>
-<li>It doesn&#39;t take any input (thus excluding the ability to read from a file).</li>
-</ol>
-
-<p>Here is my solution in R. It displays its source code on standard output when
-executed. It is mostly inspired by the C code from the original article:</p>
-<div class="highlight"><pre><code class="language-r" data-lang="r">src <span class="o">&lt;-</span><span class="s">&quot;\nescape &lt;- function(x) {\n    cat(&#39;\&quot;&#39;)\n    for(e in strsplit(x, &#39;&#39;)[[1]]) {\n        if(e == &#39;\\n&#39;) {\n            cat(&#39;\\\\n&#39;)\n        } else if(e == &#39;\\\\&#39;) {\n            cat(&#39;\\\\\\\\&#39;)\n        } else if(e == &#39;\&quot;&#39;) {\n            cat(&#39;\\\\\&quot;&#39;)\n        } else {\n            cat(e)\n        }\n    }\n    cat(&#39;\&quot;&#39;)\n}\ncat(\&quot;src &lt;-\&quot;)\nescape(src)\nwriteLines(src)&quot;</span>
-escape <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>x<span class="p">)</span> <span class="p">{</span>
-    <span class="kp">cat</span><span class="p">(</span><span class="s">&#39;&quot;&#39;</span><span class="p">)</span>
-    <span class="kr">for</span><span class="p">(</span>e <span class="kr">in</span> <span class="kp">strsplit</span><span class="p">(</span>x<span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)[[</span><span class="m">1</span><span class="p">]])</span> <span class="p">{</span>
-        <span class="kr">if</span><span class="p">(</span>e <span class="o">==</span> <span class="s">&#39;\n&#39;</span><span class="p">)</span> <span class="p">{</span>
-            <span class="kp">cat</span><span class="p">(</span><span class="s">&#39;\\n&#39;</span><span class="p">)</span>
-        <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span><span class="p">(</span>e <span class="o">==</span> <span class="s">&#39;\\&#39;</span><span class="p">)</span> <span class="p">{</span>
-            <span class="kp">cat</span><span class="p">(</span><span class="s">&#39;\\\\&#39;</span><span class="p">)</span>
-        <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span><span class="p">(</span>e <span class="o">==</span> <span class="s">&#39;&quot;&#39;</span><span class="p">)</span> <span class="p">{</span>
-            <span class="kp">cat</span><span class="p">(</span><span class="s">&#39;\\&quot;&#39;</span><span class="p">)</span>
-        <span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>
-            <span class="kp">cat</span><span class="p">(</span>e<span class="p">)</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="kp">cat</span><span class="p">(</span><span class="s">&#39;&quot;&#39;</span><span class="p">)</span>
-<span class="p">}</span>
-<span class="kp">cat</span><span class="p">(</span><span class="s">&quot;src &lt;-&quot;</span><span class="p">)</span>
-escape<span class="p">(</span>src<span class="p">)</span>
-<span class="kp">writeLines</span><span class="p">(</span>src<span class="p">)</span>
+    <p>In the previous post <a href="http://xavier.nayrac.eu/2015/10/10/a-quine-in-r/">A Quine In R</a>
+I presented a <a href="https://en.wikipedia.org/wiki/Quine_%28computing%29">quine</a>
+in the R programming language. The code was a little bit long for the task, 19 lines, mainly
+compared to the Ruby code from the original post:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">puts </span><span class="se">\&quot;</span><span class="s2">src = </span><span class="se">\&quot;</span><span class="s2"> + src.inspect + src&quot;</span>
+<span class="nb">puts</span> <span class="s2">&quot;src = &quot;</span> <span class="o">+</span> <span class="n">src</span><span class="o">.</span><span class="n">inspect</span> <span class="o">+</span> <span class="n">src</span>
 </code></pre></div>
-<p>As noted in the original article, it&#39;s a good practice to test one&#39;s own
-solution with <code>diff</code>. If the output of your quine and its source are identical,
-<code>diff</code> will not produce any output, else, happy debugging ;)</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>diff -u quine.r &lt;<span class="o">(</span>Rscript quine.r<span class="o">)</span>
+<p>In Ruby, the code is short thanks to the method <code>inspect</code>, who automatically
+escape the non printable characters and the quotes:</p>
+<div class="highlight"><pre><code class="language-irb" data-lang="irb"><span class="gp">&gt;&gt; </span><span class="n">foo</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">puts </span><span class="se">\&quot;</span><span class="s2">src</span><span class="se">\&quot;</span><span class="s2">&quot;</span>
+<span class="go">&quot;\nputs \&quot;src\&quot;&quot;</span>
+<span class="gp">&gt;&gt; </span><span class="n">foo</span><span class="o">.</span><span class="n">inspect</span>
+<span class="go">&quot;\&quot;\\nputs \\\&quot;src\\\&quot;\&quot;&quot;</span>
 </code></pre></div>
-<p>My solution is much longer than the one on
-<a href="http://rosettacode.org/wiki/Quine#R">rosetta code</a>
-for example. But who care&#39;s? It was funny to do and it was a good little puzzle
-to solve. And I even learn a new function of R (<code>writeLines</code>).</p>
+<p>Naturally I searched for a similar function in R, at least for the strings.
+I gave up after fifteen minutes of unsuccessful search, and I wrote
+<a href="http://xavier.nayrac.eu/2015/10/10/a-quine-in-r/">the 19 lines of code</a>
+from the previous post.</p>
 
-<p>So it&#39;s up to you now. Let me know if you write a quine, whatever the language ;)</p>
+<p>At this moment, Hadley Wickham kindly suggested to use the function
+<code>encodeString</code>. That&#39;s what I had been looking for, without finding it.
+With the help of this function, a quine in R is really shorter. Not as
+short as the Ruby version, but, anyway, it&#39;s shorter:</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">src <span class="o">&lt;-</span> <span class="s">&quot;\nwriteLines(c(paste(\&quot;src &lt;-\&quot;, encodeString(src, quote=&#39;\&quot;&#39;)), src))&quot;</span>
 
+<span class="kp">writeLines</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="kp">paste</span><span class="p">(</span><span class="s">&quot;src &lt;-&quot;</span><span class="p">,</span> <span class="kp">encodeString</span><span class="p">(</span>src<span class="p">,</span> quote<span class="o">=</span><span class="s">&#39;&quot;&#39;</span><span class="p">)),</span> src<span class="p">))</span>
+</code></pre></div>
+<p>I like this version, so I add it on <a href="http://rosettacode.org/wiki/Quine#R">rosettacode.org</a>.</p>
+
+<p>Like I said previously, it&#39;s good to use <code>diff</code> to assure yourself that you
+really wrote a quine ;)</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">diff -u quine2.r &lt;<span class="o">(</span>Rscript quine2.r<span class="o">)</span>
+</code></pre></div>
+<p>And the result is:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ Rscript quine3.r
+src &lt;- &quot;\nwriteLines(c(paste(\&quot;src &lt;-\&quot;, encodeString(src, quote=&#39;\&quot;&#39;)), src))&quot;
+
+writeLines(c(paste(&quot;src &lt;-&quot;, encodeString(src, quote=&#39;&quot;&#39;)), src))
+</code></pre></div>
   </div>
   
 </div>
