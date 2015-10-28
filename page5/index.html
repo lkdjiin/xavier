@@ -99,6 +99,10 @@
           
         
       
+        
+          
+        
+      
 
       <!-- <a class="sidebar-nav-item" href="/archive/v0.0.1.zip">Download</a> -->
       <!-- <a class="sidebar-nav-item" href="">GitHub project</a> -->
@@ -115,57 +119,33 @@
   
   <div class="post">
     <h1 class="post-title">
-      <a href="/2015/08/20/find-the-size-of-an-arduino-program/">
-        Find the Size of an Arduino Program
+      <a href="/2015/09/11/how-to-implement-a-well-known-algorithm/">
+        How to implement a well known algorithm
       </a>
     </h1>
 
-    <span class="post-date">20 Aug 2015</span>
+    <span class="post-date">11 Sep 2015</span>
 
-    <p>If I want to find the size and the memory need of an Arduino program, how do I
-do that? And why would I know their size?</p>
+    <p>When you are implementing a «well known» algorithm you really should strictly
+follow the algorithm&#39;s steps as they are.</p>
 
-<p><img src="/public/images/640-arduino-avr.jpg" class="" /></p>
+<p>Do not start to modify this or that part.</p>
 
-<h2>Where is the program hidden?</h2>
+<p>Or even worse, do not try to optimize anything.</p>
 
-<p>The program, in elf format, is located in a hidden folder. You may find that its
-size is quite impressive. This is not its final size into the Arduino.</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span><span class="se">\l</span>s -lh .build/uno/firmware.elf 
--rwxr-xr-x <span class="m">1</span> xavier xavier 40K août  <span class="m">19</span> 21:01 .build/uno/firmware.elf
-</code></pre></div>
-<p><em>A hidden folder is a folder whose name starts with a dot. One say «hidden»
-because on Linux and OS X they are invisible by default.</em></p>
+<p>If it is called a «well known» algorithm, there must a good reason for that.</p>
 
-<h2>How to find the memory needs of an Arduino program</h2>
+<p>It&#39;s surely that lots and lots of people have run into trouble on this algorithm.</p>
 
-<p>We are going to use the program <code>avr-size</code>:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>avr-size -dC .build/uno/firmware.elf 
-AVR Memory Usage
-----------------
-Device: Unknown
+<p>It&#39;s likely that an army of developers have worked on it.</p>
 
-Program:    <span class="m">2786</span> bytes
-<span class="o">(</span>.text + .data + .bootloader<span class="o">)</span>
+<p>Sometimes since 40 years.</p>
 
-Data:         <span class="m">34</span> bytes
-<span class="o">(</span>.data + .bss + .noinit<span class="o">)</span>
-</code></pre></div>
-<p>Here I&#39;m using 34 bytes of RAM, for a total of 2786 bytes into the
-microcontroller.</p>
+<p>A «well known» algorithm is good enough for you.</p>
 
-<p>The switch <code>-d</code> gives us the values in decimal. The switch <code>-C</code> specify the
-report&#39;s format from <code>avr-size</code>. See <code>avr-size --help</code> for other formats.</p>
+<p>Implement it as it is.</p>
 
-<h2>Why</h2>
-
-<p>ATMEL microcontrollers have different size of memory (for the program and for
-the RAM). For example the ATtiny13 has 1 Kb for the program and 64 bytes of
-RAM, while the ATtiny85 has 8 Kb for the program and 512 bytes for the RAM.</p>
-
-<p>For those programs who are intended to leave the Arduino platform, to end in a
-microcontroller, knowing the memory size helps to know if it&#39;s interesting
-to spend time and energy to optimise these programs.</p>
+<p>Save your time.</p>
 
   </div>
   

@@ -11,7 +11,7 @@
 
   <title>
     
-      Find the Size of an Arduino Program &middot; Xavier Nayrac
+      Make an electronic tea timer &middot; Xavier Nayrac
     
   </title>
 
@@ -116,55 +116,74 @@
 
     <div class="content container">
       <div class="post">
-  <h1 class="post-title">Find the Size of an Arduino Program</h1>
-  <span class="post-date">20 Aug 2015</span>
-  <p>If I want to find the size and the memory need of an Arduino program, how do I
-do that? And why would I know their size?</p>
+  <h1 class="post-title">Make an electronic tea timer</h1>
+  <span class="post-date">28 Oct 2015</span>
+  <p>Here is a project I&#39;m running for several weeks. The objective was to make my
+first <em>real thing</em>, with the help of an arduino. This thing is an <em>electronic
+tea timer</em>.</p>
 
-<p><img src="/public/images/640-arduino-avr.jpg" class="" /></p>
+<p><img src="/public/images/hourglass.jpg" class="" /></p>
 
-<h2>Where is the program hidden?</h2>
+<p>A what? Indeed it&#39;s simply a timer. But I think that the term <em>electronic tea
+timer</em> is better, isn&#39;t it ;) When I&#39;m brewing some tea, 9 times out of 10 I
+forget the time limit for the infusion and end up with an undrinkable beverage.
+So I wanted a simple timer with two buttons, a buzzer and a LED.
+A button starts a 3 minute countdown, for green tea, and the other one starts a 5
+minute countdown for black tea. At the end the whole thing makes plenty of
+beeps and blinks until I puts it off. Something really simple, isn&#39;t it?
+But I didn&#39;t want to use a whole arduino in this project, while a 0.60€ tiny
+micro controller might do the trick.</p>
 
-<p>The program, in elf format, is located in a hidden folder. You may find that its
-size is quite impressive. This is not its final size into the Arduino.</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span><span class="se">\l</span>s -lh .build/uno/firmware.elf 
--rwxr-xr-x <span class="m">1</span> xavier xavier 40K août  <span class="m">19</span> 21:01 .build/uno/firmware.elf
-</code></pre></div>
-<p><em>A hidden folder is a folder whose name starts with a dot. One say «hidden»
-because on Linux and OS X they are invisible by default.</em></p>
+<p>So I would have to learn how to program the ATtiny micro controllers from Atmel.
+Why those ones? Because they are close to the ATmega328, the one into the
+arduino. And I already know some things about this chip.</p>
 
-<h2>How to find the memory needs of an Arduino program</h2>
+<p>First, I created a prototype of that <em>sound hourglass</em> with the arduino.
+Just to be sure I knew how to do. The schematic could be something like that:</p>
 
-<p>We are going to use the program <code>avr-size</code>:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>avr-size -dC .build/uno/firmware.elf 
-AVR Memory Usage
-----------------
-Device: Unknown
+<p><img src="/public/images/proto-tea-timer.png" class="" /></p>
 
-Program:    <span class="m">2786</span> bytes
-<span class="o">(</span>.text + .data + .bootloader<span class="o">)</span>
+<p>Finally I use only one LED, but in the prototype there was two. Using this
+prototype I soon realized that a single LED was enough.</p>
 
-Data:         <span class="m">34</span> bytes
-<span class="o">(</span>.data + .bss + .noinit<span class="o">)</span>
-</code></pre></div>
-<p>Here I&#39;m using 34 bytes of RAM, for a total of 2786 bytes into the
-microcontroller.</p>
+<p>Next step was to make the timer with an ATtiny45. Why this one precisely?
+Because 1) I owned one and 2) there is a plethora of tutorials to program an
+ATtiny45 using an arduino as a programmer. If you are not aware of the term,
+<strong>to program</strong> a micro controller is more or less to transfer its program into its
+memory
+from a computer. For both sides to communicate, one need an interface called a
+<strong>programmer</strong>. There is many ways to do this, I wanted to use an arduino as a
+base programmer, to have nothing new to buy. You&#39;ll find a good tutorial here:
+<a href="http://www.instructables.com/id/Program-an-ATtiny44458485-with-Arduino/">Program an ATtiny44/45/84/85 with Arduino</a>.</p>
 
-<p>The switch <code>-d</code> gives us the values in decimal. The switch <code>-C</code> specify the
-report&#39;s format from <code>avr-size</code>. See <code>avr-size --help</code> for other formats.</p>
+<p>It was relatively easy to make a programmer for the ATtiny45 using an arduino:</p>
 
-<h2>Why</h2>
+<p><img src="/public/images/hello-world-attiny45.png" class="" /></p>
 
-<p>ATMEL microcontrollers have different size of memory (for the program and for
-the RAM). For example the ATtiny13 has 1 Kb for the program and 64 bytes of
-RAM, while the ATtiny85 has 8 Kb for the program and 512 bytes for the RAM.</p>
+<p>As I was going to program a lot of micro controllers, I preferred make a shield.
+First a temporary one:</p>
 
-<p>For those programs who are intended to leave the Arduino platform, to end in a
-microcontroller, knowing the memory size helps to know if it&#39;s interesting
-to spend time and energy to optimise these programs.</p>
+<p><img src="/public/images/arduino-temp-shield.jpg" class="" /></p>
+
+<p>Then a permanent:</p>
+
+<p><img src="/public/images/arduino-shield-attiny45.jpg" class="" /></p>
+
+<p>I was too eager to make the shield, so I reversed the direction of the DIP
+socket. That is why the wires are so long: I didn&#39;t want to desolder it. Anyway
+it works fine ;)</p>
+
+<p>So I was able to program an ATtiny45 (4K of ROM) using an arduino <strong>AND</strong> the
+Arduino IDE. It was a good start, but it wasn&#39;t enough. First I didn&#39;t
+want to use the Arduino IDE, for reproducibility and automation issues. And
+then I was pretty sure that the code of my <em>tea timer</em> could fit into an
+ATtiny13, who have only 1K of ROM, and is almost two times cheaper than an
+ATtiny45.</p>
+
+<p>To be continued…</p>
 
   <blockquote> Thanks for reading. If you liked this post, you can
-<a href="https://twitter.com/intent/tweet?url=http://xavier.nayrac.eu/2015/08/20/find-the-size-of-an-arduino-program/&text=Find the Size of an Arduino Program&via=lkdjiin" 
+<a href="https://twitter.com/intent/tweet?url=http://xavier.nayrac.eu/2015/10/28/make-electronic-tea-timer/&text=Make an electronic tea timer&via=lkdjiin" 
    target="_blank">
   share it with your followers</a> 
 or even
@@ -180,15 +199,6 @@ or even
     
       <li>
         <h3>
-          <a href="/2015/10/28/make-electronic-tea-timer/">
-            Make an electronic tea timer
-            <small>28 Oct 2015</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
           <a href="/2015/10/13/a-quine-n-r-the-return/">
             A Quine in R - The Return
             <small>13 Oct 2015</small>
@@ -201,6 +211,15 @@ or even
           <a href="/2015/10/10/a-quine-in-r/">
             A Quine in R
             <small>10 Oct 2015</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2015/10/06/how-many-times-a-day-do-i-sit-down-at-my-desk/">
+            How many times a day do I sit down at my desk
+            <small>06 Oct 2015</small>
           </a>
         </h3>
       </li>

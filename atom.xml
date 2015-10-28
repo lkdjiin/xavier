@@ -4,13 +4,84 @@
  <title>Xavier Nayrac</title>
  <link href="http://xavier.nayrac.eu/atom.xml" rel="self"/>
  <link href="http://xavier.nayrac.eu/"/>
- <updated>2015-10-13T15:02:09+02:00</updated>
+ <updated>2015-10-28T19:07:44+01:00</updated>
  <id>http://xavier.nayrac.eu</id>
  <author>
    <name>Xavier Nayrac</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>Make an electronic tea timer</title>
+   <link href="http://xavier.nayrac.eu/2015/10/28/make-electronic-tea-timer/"/>
+   <updated>2015-10-28T00:00:00+01:00</updated>
+   <id>http://xavier.nayrac.eu/2015/10/28/make-electronic-tea-timer</id>
+   <content type="html">&lt;p&gt;Here is a project I&amp;#39;m running for several weeks. The objective was to make my
+first &lt;em&gt;real thing&lt;/em&gt;, with the help of an arduino. This thing is an &lt;em&gt;electronic
+tea timer&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/images/hourglass.jpg&quot; class=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A what? Indeed it&amp;#39;s simply a timer. But I think that the term &lt;em&gt;electronic tea
+timer&lt;/em&gt; is better, isn&amp;#39;t it ;) When I&amp;#39;m brewing some tea, 9 times out of 10 I
+forget the time limit for the infusion and end up with an undrinkable beverage.
+So I wanted a simple timer with two buttons, a buzzer and a LED.
+A button starts a 3 minute countdown, for green tea, and the other one starts a 5
+minute countdown for black tea. At the end the whole thing makes plenty of
+beeps and blinks until I puts it off. Something really simple, isn&amp;#39;t it?
+But I didn&amp;#39;t want to use a whole arduino in this project, while a 0.60€ tiny
+micro controller might do the trick.&lt;/p&gt;
+
+&lt;p&gt;So I would have to learn how to program the ATtiny micro controllers from Atmel.
+Why those ones? Because they are close to the ATmega328, the one into the
+arduino. And I already know some things about this chip.&lt;/p&gt;
+
+&lt;p&gt;First, I created a prototype of that &lt;em&gt;sound hourglass&lt;/em&gt; with the arduino.
+Just to be sure I knew how to do. The schematic could be something like that:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/images/proto-tea-timer.png&quot; class=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Finally I use only one LED, but in the prototype there was two. Using this
+prototype I soon realized that a single LED was enough.&lt;/p&gt;
+
+&lt;p&gt;Next step was to make the timer with an ATtiny45. Why this one precisely?
+Because 1) I owned one and 2) there is a plethora of tutorials to program an
+ATtiny45 using an arduino as a programmer. If you are not aware of the term,
+&lt;strong&gt;to program&lt;/strong&gt; a micro controller is more or less to transfer its program into its
+memory
+from a computer. For both sides to communicate, one need an interface called a
+&lt;strong&gt;programmer&lt;/strong&gt;. There is many ways to do this, I wanted to use an arduino as a
+base programmer, to have nothing new to buy. You&amp;#39;ll find a good tutorial here:
+&lt;a href=&quot;http://www.instructables.com/id/Program-an-ATtiny44458485-with-Arduino/&quot;&gt;Program an ATtiny44/45/84/85 with Arduino&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;It was relatively easy to make a programmer for the ATtiny45 using an arduino:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/images/hello-world-attiny45.png&quot; class=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As I was going to program a lot of micro controllers, I preferred make a shield.
+First a temporary one:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/images/arduino-temp-shield.jpg&quot; class=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then a permanent:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/images/arduino-shield-attiny45.jpg&quot; class=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I was too eager to make the shield, so I reversed the direction of the DIP
+socket. That is why the wires are so long: I didn&amp;#39;t want to desolder it. Anyway
+it works fine ;)&lt;/p&gt;
+
+&lt;p&gt;So I was able to program an ATtiny45 (4K of ROM) using an arduino &lt;strong&gt;AND&lt;/strong&gt; the
+Arduino IDE. It was a good start, but it wasn&amp;#39;t enough. First I didn&amp;#39;t
+want to use the Arduino IDE, for reproducibility and automation issues. And
+then I was pretty sure that the code of my &lt;em&gt;tea timer&lt;/em&gt; could fit into an
+ATtiny13, who have only 1K of ROM, and is almost two times cheaper than an
+ATtiny45.&lt;/p&gt;
+
+&lt;p&gt;To be continued…&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>A Quine in R - The Return</title>

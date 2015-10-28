@@ -99,6 +99,10 @@
           
         
       
+        
+          
+        
+      
 
       <!-- <a class="sidebar-nav-item" href="/archive/v0.0.1.zip">Download</a> -->
       <!-- <a class="sidebar-nav-item" href="">GitHub project</a> -->
@@ -115,69 +119,58 @@
   
   <div class="post">
     <h1 class="post-title">
-      <a href="/2015/10/06/how-many-times-a-day-do-i-sit-down-at-my-desk/">
-        How many times a day do I sit down at my desk
+      <a href="/2015/10/10/a-quine-in-r/">
+        A Quine in R
       </a>
     </h1>
 
-    <span class="post-date">06 Oct 2015</span>
+    <span class="post-date">10 Oct 2015</span>
 
-    <p>Since September 21, I record every day when I&#39;m (and when I&#39;m not) seated at
-my desk. I&#39;m going to conduct this, somewhat weird, experiment during seven or
-eight weeks. I would like to known how many times a day do I sit down at my
-desk, and also to see if there is some recurring patterns.
-I record those data with an arduino linked to a
-<a href="http://www.interlinkelectronics.com/FSR406.php">Force Sensing Resistor</a>.
-The <a href="https://github.com/lkdjiin/sit-down">code for the arduino</a>
-(along with some photos) is available on Github.</p>
+    <p>I just read the article
+<a href="http://blog.chaps.io/2015/10/01/generating-quines-in-ruby.html">generating Quines in Ruby</a>
+and I really enjoyed it. I wanted to do a quine myself in R.</p>
 
-<p>This blog post is a debriefing of the first week of data recording.</p>
+<p>So, what&#39;s a quine? A quine is a self reproducing software. It must meet
+two conditions:</p>
 
-<p><img src="/public/images/raw.jpg" class="" /></p>
+<ol>
+<li>It produces its source code as its unique output.</li>
+<li>It doesn&#39;t take any input (thus excluding the ability to read from a file).</li>
+</ol>
 
-<p>The pressure is recorded with a scale varying from 0 to 1023.
-Zero being the absence of pressure and 1023 being the maximum pressure that the
-device can measure up. I take a measure every 30 seconds.</p>
+<p>Here is my solution in R. It displays its source code on standard output when
+executed. It is mostly inspired by the C code from the original article:</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">src <span class="o">&lt;-</span><span class="s">&quot;\nescape &lt;- function(x) {\n    cat(&#39;\&quot;&#39;)\n    for(e in strsplit(x, &#39;&#39;)[[1]]) {\n        if(e == &#39;\\n&#39;) {\n            cat(&#39;\\\\n&#39;)\n        } else if(e == &#39;\\\\&#39;) {\n            cat(&#39;\\\\\\\\&#39;)\n        } else if(e == &#39;\&quot;&#39;) {\n            cat(&#39;\\\\\&quot;&#39;)\n        } else {\n            cat(e)\n        }\n    }\n    cat(&#39;\&quot;&#39;)\n}\ncat(\&quot;src &lt;-\&quot;)\nescape(src)\nwriteLines(src)&quot;</span>
+escape <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>x<span class="p">)</span> <span class="p">{</span>
+    <span class="kp">cat</span><span class="p">(</span><span class="s">&#39;&quot;&#39;</span><span class="p">)</span>
+    <span class="kr">for</span><span class="p">(</span>e <span class="kr">in</span> <span class="kp">strsplit</span><span class="p">(</span>x<span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)[[</span><span class="m">1</span><span class="p">]])</span> <span class="p">{</span>
+        <span class="kr">if</span><span class="p">(</span>e <span class="o">==</span> <span class="s">&#39;\n&#39;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kp">cat</span><span class="p">(</span><span class="s">&#39;\\n&#39;</span><span class="p">)</span>
+        <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span><span class="p">(</span>e <span class="o">==</span> <span class="s">&#39;\\&#39;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kp">cat</span><span class="p">(</span><span class="s">&#39;\\\\&#39;</span><span class="p">)</span>
+        <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span><span class="p">(</span>e <span class="o">==</span> <span class="s">&#39;&quot;&#39;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kp">cat</span><span class="p">(</span><span class="s">&#39;\\&quot;&#39;</span><span class="p">)</span>
+        <span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>
+            <span class="kp">cat</span><span class="p">(</span>e<span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="kp">cat</span><span class="p">(</span><span class="s">&#39;&quot;&#39;</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="kp">cat</span><span class="p">(</span><span class="s">&quot;src &lt;-&quot;</span><span class="p">)</span>
+escape<span class="p">(</span>src<span class="p">)</span>
+<span class="kp">writeLines</span><span class="p">(</span>src<span class="p">)</span>
+</code></pre></div>
+<p>As noted in the original article, it&#39;s a good practice to test one&#39;s own
+solution with <code>diff</code>. If the output of your quine and its source are identical,
+<code>diff</code> will not produce any output, else, happy debugging ;)</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>diff -u quine.r &lt;<span class="o">(</span>Rscript quine.r<span class="o">)</span>
+</code></pre></div>
+<p>My solution is much longer than the one on
+<a href="http://rosettacode.org/wiki/Quine#R">rosetta code</a>
+for example. But who care&#39;s? It was funny to do and it was a good little puzzle
+to solve. And I even learn a new function of R (<code>writeLines</code>).</p>
 
-<p>On the preceding plot, we can see the raw data for the week. They represent the
-whole scale of values. Depending how I&#39;m sitting the device record different
-values. The blue points at bottom clearly indicate when I am not seated.
-After a few trials and errors, I found that 20 is a good threshold to separate
-raw data in two categories: <em>seated</em> and <em>not seated</em>.</p>
-
-<p>Here is the result for the first week:</p>
-
-<table>
-<tr>
-  <th>Day</th>
-  <th>Times seated</th>
-</tr>
-<tr><td>2015-09-21</td><td>32</td></tr>
-<tr><td>2015-09-22</td><td>30</td></tr>
-<tr><td>2015-09-23</td><td>33</td></tr>
-<tr><td>2015-09-24</td><td>33</td></tr>
-<tr><td>2015-09-25</td><td>40</td></tr>
-<tr><td>2015-09-26</td><td>26</td></tr>
-<tr><td>2015-09-27</td><td>26</td></tr>
-</table>
-
-<p>One can visualize the processed data in an interesting way, for example the
-Monday ; maroon areas represent when I am seated at my desk (the duration):</p>
-
-<p><img src="/public/images/visualize-day.png" class="" /></p>
-
-<p>One can leverage this type of visualization to look at the whole week.
-It could be a mean to identify patterns. But this week was special for me
-(<em>I worked also during the weekend, I normally never do this</em>) so I&#39;m going to
-wait for more data before to conclude anything.</p>
-
-<p><img src="/public/images/visualize-week.png" class="" /></p>
-
-<p>I will surely write a following, more technical, post to show the R code to
-process the data and for the plots.</p>
-
-<p>If you have a similar project (in your head or in the real world) I would
-like to hear about it, so leave your comment.</p>
+<p>So it&#39;s up to you now. Let me know if you write a quine, whatever the language ;)</p>
 
   </div>
   
