@@ -67,3 +67,5 @@ ATtiny13, who have only 1K of ROM, and is almost two times cheaper than an
 ATtiny45.
 
 To be continued…
+
+[Read part 2](/2015/12/14/make-electronic-tea-timer-part-2/)
