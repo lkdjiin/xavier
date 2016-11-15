@@ -4,13 +4,59 @@
  <title>Xavier Nayrac</title>
  <link href="http://xavier.nayrac.eu/atom.xml" rel="self"/>
  <link href="http://xavier.nayrac.eu/"/>
- <updated>2015-12-14T18:12:29+01:00</updated>
+ <updated>2016-11-15T10:34:53+01:00</updated>
  <id>http://xavier.nayrac.eu</id>
  <author>
    <name>Xavier Nayrac</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>Workaround for a Gvim Bug on Debian Sid</title>
+   <link href="http://xavier.nayrac.eu/2016/11/15/workaround-gvim-bug-debian-sid/"/>
+   <updated>2016-11-15T00:00:00+01:00</updated>
+   <id>http://xavier.nayrac.eu/2016/11/15/workaround-gvim-bug-debian-sid</id>
+   <content type="html">&lt;p&gt;Since an update of the gtk3 lib, there is a bug with the &lt;code&gt;gvim&lt;/code&gt; command on
+Debian Sid (and possibly other systems too).&lt;/p&gt;
+
+&lt;h2&gt;The Bug&lt;/h2&gt;
+
+&lt;p&gt;Gvim is unusable! We you run the program you get this message, repeated many times:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ gvim
+
+(gvim:6054): Gtk-CRITICAL **: gtk_widget_set_size_request: assertion &amp;#39;width &amp;gt;= -1&amp;#39; failed
+*** BUG ***
+In pixman_region32_init_rect: Invalid rectangle passed
+Set a breakpoint on &amp;#39;_pixman_log_error&amp;#39; to debug
+.
+.
+.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The bug will eventually be fixed either by the vim part or by the gtk3 part.
+But in the meantime, what do we do?&lt;/p&gt;
+
+&lt;h2&gt;A Workaround&lt;/h2&gt;
+
+&lt;p&gt;The program called by &lt;code&gt;gvim&lt;/code&gt; is &lt;code&gt;vim.gtk3&lt;/code&gt;, as you can see:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;which gvim
+/usr/bin/gvim
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ls -l /usr/bin/gvim
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;...&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; /usr/bin/gvim -&amp;gt; /etc/alternatives/gvim*
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ls -l /etc/alternatives/gvim
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;...&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; /etc/alternatives/gvim -&amp;gt; /usr/bin/vim.gtk3*
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;So we can use the «old» version &lt;code&gt;vim.gtk&lt;/code&gt;. You maybe have to install it with
+&lt;code&gt;apt-get install vim-gtk&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Either run it manually with &lt;code&gt;vim.gtk -g&lt;/code&gt; instead of &lt;code&gt;gvim&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Or use &lt;code&gt;update-alternatives&lt;/code&gt; to select which program to run with &lt;code&gt;gvim&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ sudo update-alternatives --config gvim
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;You might prefer to use the graphic version of update-alternatives, &lt;code&gt;galternatives&lt;/code&gt;.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Make an electronic tea timer part 2</title>

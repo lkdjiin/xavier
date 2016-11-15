@@ -107,13 +107,17 @@
           
         
       
+        
+          
+        
+      
 
       <!-- <a class="sidebar-nav-item" href="/archive/v0.0.1.zip">Download</a> -->
       <!-- <a class="sidebar-nav-item" href="">GitHub project</a> -->
       <!-- <span class="sidebar-nav-item">Currently v0.0.1</span> -->
     </nav>
 
-    <!-- <p>&copy; 2015. All rights reserved.</p> -->
+    <!-- <p>&copy; 2016. All rights reserved.</p> -->
   </div>
 </div>
 
@@ -123,57 +127,174 @@
   
   <div class="post">
     <h1 class="post-title">
-      <a href="/2015/08/02/how-to-learn-better/">
-        How to Learn Better - The Recall Technique
+      <a href="/2015/08/03/do-you-know-the-gem-gem/">
+        Do You Know The Gem Gem?
       </a>
     </h1>
 
-    <span class="post-date">02 Aug 2015</span>
+    <span class="post-date">03 Aug 2015</span>
 
-    <p>I recently attended the course 
-<a href="https://www.coursera.org/learn/learning-how-to-learn">Learning how to learn</a>
-from
-<a href="https://www.coursera.org/ucsd">San Diego university, Californie</a>
-on <a href="https://www.coursera.org/courses">Coursera</a>.</p>
+    <p><code>gem</code> is a well known command amongst rubyists, for a good reason:
+it is central to the use of Ruby.
+As an example, if I want to benefit from 
+<a href="https://github.com/michaeldv/awesome_print">awesome print</a> in my irb session,
+I will install it like this:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ gem install awesome_print
+</code></pre></div>
+<p>Likewise, did you ever see a Rails app without a Gemfile?</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">source</span> <span class="s1">&#39;https://rubygems.org&#39;</span>
+<span class="n">ruby</span> <span class="s1">&#39;2.0.0&#39;</span>
 
-<p>I was looking for some tips and tricks to learn better, ie faster and easier.
-I learned a lot!</p>
+<span class="n">gem</span> <span class="s1">&#39;rails&#39;</span><span class="p">,</span> <span class="s1">&#39;4.0.0&#39;</span>
+<span class="n">gem</span> <span class="s1">&#39;pg&#39;</span>
+<span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</code></pre></div>
+<p>Actually if you have only 3 days of Ruby in your life, you can use <code>gem</code> like
+a boss. Do you? I don&#39;t. Not yet.</p>
 
-<p>Professors Barbara Oakley and Terrence Sejnowski do an excellent job.
-I will share with you some things I learned in the course. And I&#39;m going to
-start today with the <strong>recall technique</strong>.</p>
+<p>Indeed I use Ruby every single day since 5 or 6 years. And I had never written
+<code>gem --help</code>. Never. Not once.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ gem --help
+RubyGems is a sophisticated package manager for Ruby.  This is a
+...
+  Further help:
+    gem help commands            list all &#39;gem&#39; commands
+    gem help examples            show some examples of usage
+    gem help gem_dependencies    gem dependencies file guide
+    gem help platforms           gem platforms guide
+    gem help &lt;COMMAND&gt;           show help on COMMAND
+    gem server                   present a web page at
+...
+</code></pre></div>
+<p>I think there is a lot to read. So, here is a quick tour of the many possibilities of <code>gem</code>.</p>
 
-<h2>What</h2>
+<h2>gem help commands</h2>
 
-<p>The recall technique is to do a real effort, after a working block, to remember
-the main points addressed during this working block.</p>
+<p>Let&#39;s start by looking at the different commands:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ gem help commands
+GEM commands are:
 
-<p>It&#39;s nothing more than that, really. But this simple trick is going to boost your
-capacity to memorize, by anchoring more deeply all your fresh knowledge into
-your memory.</p>
+    build                  Build a gem from a gemspec
+    cert                   Manage RubyGems certificates and signing settings
+...
+    wrappers               Re run generation of environment wrappers for gems.
+    yank                   Remove a pushed gem from the index
+...
+Commands may be abbreviated, so long as they are unambiguous.
+</code></pre></div>
+<p>I have abbreviated the previous output, because there are <strong>33 commands</strong>.
+I really had no clue of such a big number of commands. Here is the list:</p>
 
-<p>So, what is that thing I called a <strong>working block</strong>? It could be anything:
-a 20 minutes class, 30 minutes of reading, a lecture of 45 minutes, an hour
-debug session, a 3 hours meeting, etc.</p>
+<ul>
+<li>build</li>
+<li>cert</li>
+<li>check</li>
+<li>cleanup</li>
+<li>contents</li>
+<li>dependency</li>
+<li>environment</li>
+<li>fetch</li>
+<li>generate_index</li>
+<li>help</li>
+<li>install</li>
+<li>list</li>
+<li>lock</li>
+<li>mirror</li>
+<li>open</li>
+<li>outdated</li>
+<li>owner</li>
+<li>pristine</li>
+<li>push</li>
+<li>query</li>
+<li>rdoc</li>
+<li>regenerate_binstubs</li>
+<li>search</li>
+<li>server</li>
+<li>sources</li>
+<li>specification</li>
+<li>stale</li>
+<li>uninstall</li>
+<li>unpack</li>
+<li>update</li>
+<li>which</li>
+<li>wrappers</li>
+<li>yank</li>
+</ul>
 
-<h2>Why</h2>
+<p>Personnaly I already used <code>build</code>, <code>cleanup</code>, <code>install</code>, <code>list</code>,
+<code>push</code>, <code>uninstall</code>, <code>update</code> and that&#39;s it! 7 commands on 33.
+I am off the mark.</p>
 
-<p>If one does nothing to anchor in one&#39;s brain the information learned during a
-working block (especially if it was theory), these ones will quickly disappear.
-This is a natural phenomenon: the information will be cleared if nothing is done
-to retain them.</p>
+<p>Looking closer to the output of <code>gem help commands</code>, I realize that one can
+abbreviate each command:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ gem install my_gem
+</code></pre></div>
+<p>thus will be identical to:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ gem i my_gem
+</code></pre></div>
+<p>I really like this idea.</p>
 
-<p>There is another thing where the recall technique could be of some help: to avoid the illusions of competence (the false sensation to have learned something), focusing on what we have poorly learned.</p>
+<h2>gem help a_command</h2>
 
-<h2>How</h2>
+<p>One can get some help for a specific command.
+For example, with <code>gem help install</code> I learn that those options to not generate
+the documentation:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">--no-rdoc
+--no-ri
+</code></pre></div>
+<p>are deprecated! Now one can use:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">-N, --no-document
+</code></pre></div>
+<h2>gem help examples</h2>
 
-<p>The best implementation I have found is to take (no more than) a minute at the
-end of a working block to write down the main points. It can be 2 or 3
-sentences, a bullet list, a schema, or anything you could think of.</p>
+<p>Obviously <code>gem help examples</code> displays several examples ;)
+Like how to install a specific version of a gem:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ gem install rake --version 0.3.1
+</code></pre></div>
+<p>I don&#39;t know why but I never remember this syntax
+Now I would not need to ask to a search engine.
+I content myself with <code>geme help examples</code>.</p>
 
-<p>Two remarks: (i) Taking notes during the working block doesn&#39;t exempt you to implement the recall technique, (ii) Thinking about the few main points is not enough, you really have to write them down.</p>
+<h2>gem server</h2>
 
-<p><strong>With this very simple habit you really can learn faster and simpler.</strong></p>
+<p>Here is a little curiosity: <code>gem server</code> provides an html page (see it at
+<code>localhost:8808</code>) with the list of all installed gems.
+This seems a little gadget, especially that one can have such information quickly on the command line with <code>list</code>:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ gem list
+
+*** LOCAL GEMS ***
+
+awesome_print (1.6.1)
+bigdecimal (1.2.6)
+bundler (1.7.9)
+...
+</code></pre></div>
+<p>Then, with <code>gem help list</code>, I found a way to get details about installed gems:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ gem list -d
+
+*** LOCAL GEMS ***
+
+awesome_print (1.6.1)
+    Author: Michael Dvorkin
+    Homepage: http://github.com/michaeldv/awesome_print
+    License: MIT
+    Installed at: /home/xavier/.rvm/gems/ruby-2.2.0
+
+    Pretty print Ruby objects with proper indentation and colors
+
+bigdecimal (1.2.6)
+    Authors: Kenta Murata, Zachary Scott, Shigeo Kobayashi
+    Homepage: http://www.ruby-lang.org
+    Installed at (default): /home/xavier/.rvm/rubies/ruby-2.2.0/lib/ruby/gems/2.2.0
+
+Arbitrary-precision decimal floating-point number library.
+
+...
+</code></pre></div>
+<h2>Need more work…</h2>
+
+<p>I didn&#39;t finish to read this documentation. It looks promising to me, and I
+feel that I&#39;m going to still learn many things.</p>
 
 <p>See you soon.</p>
 
@@ -183,7 +304,7 @@ sentences, a bullet list, a schema, or anything you could think of.</p>
 
 <div class="pagination">
   
-    <span class="pagination-item older">Older</span>
+    <a class="pagination-item older" href="/page10">Older</a>
   
   
     

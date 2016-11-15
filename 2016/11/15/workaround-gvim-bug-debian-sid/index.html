@@ -11,7 +11,7 @@
 
   <title>
     
-      Find the Size of an Arduino Program &middot; Xavier Nayrac
+      Workaround for a Gvim Bug on Debian Sid &middot; Xavier Nayrac
     
   </title>
 
@@ -124,55 +124,49 @@
 
     <div class="content container">
       <div class="post">
-  <h1 class="post-title">Find the Size of an Arduino Program</h1>
-  <span class="post-date">20 Aug 2015</span>
-  <p>If I want to find the size and the memory need of an Arduino program, how do I
-do that? And why would I know their size?</p>
+  <h1 class="post-title">Workaround for a Gvim Bug on Debian Sid</h1>
+  <span class="post-date">15 Nov 2016</span>
+  <p>Since an update of the gtk3 lib, there is a bug with the <code>gvim</code> command on
+Debian Sid (and possibly other systems too).</p>
 
-<p><img src="/public/images/640-arduino-avr.jpg" class="" /></p>
+<h2>The Bug</h2>
 
-<h2>Where is the program hidden?</h2>
+<p>Gvim is unusable! We you run the program you get this message, repeated many times:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ gvim
 
-<p>The program, in elf format, is located in a hidden folder. You may find that its
-size is quite impressive. This is not its final size into the Arduino.</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span><span class="se">\l</span>s -lh .build/uno/firmware.elf 
--rwxr-xr-x <span class="m">1</span> xavier xavier 40K août  <span class="m">19</span> 21:01 .build/uno/firmware.elf
+(gvim:6054): Gtk-CRITICAL **: gtk_widget_set_size_request: assertion &#39;width &gt;= -1&#39; failed
+*** BUG ***
+In pixman_region32_init_rect: Invalid rectangle passed
+Set a breakpoint on &#39;_pixman_log_error&#39; to debug
+.
+.
+.
 </code></pre></div>
-<p><em>A hidden folder is a folder whose name starts with a dot. One say «hidden»
-because on Linux and OS X they are invisible by default.</em></p>
+<p>The bug will eventually be fixed either by the vim part or by the gtk3 part.
+But in the meantime, what do we do?</p>
 
-<h2>How to find the memory needs of an Arduino program</h2>
+<h2>A Workaround</h2>
 
-<p>We are going to use the program <code>avr-size</code>:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>avr-size -dC .build/uno/firmware.elf 
-AVR Memory Usage
-----------------
-Device: Unknown
-
-Program:    <span class="m">2786</span> bytes
-<span class="o">(</span>.text + .data + .bootloader<span class="o">)</span>
-
-Data:         <span class="m">34</span> bytes
-<span class="o">(</span>.data + .bss + .noinit<span class="o">)</span>
+<p>The program called by <code>gvim</code> is <code>vim.gtk3</code>, as you can see:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>which gvim
+/usr/bin/gvim
+<span class="nv">$ </span>ls -l /usr/bin/gvim
+<span class="o">[</span>...<span class="o">]</span> /usr/bin/gvim -&gt; /etc/alternatives/gvim*
+<span class="nv">$ </span>ls -l /etc/alternatives/gvim
+<span class="o">[</span>...<span class="o">]</span> /etc/alternatives/gvim -&gt; /usr/bin/vim.gtk3*
 </code></pre></div>
-<p>Here I&#39;m using 34 bytes of RAM, for a total of 2786 bytes into the
-microcontroller.</p>
+<p>So we can use the «old» version <code>vim.gtk</code>. You maybe have to install it with
+<code>apt-get install vim-gtk</code>.</p>
 
-<p>The switch <code>-d</code> gives us the values in decimal. The switch <code>-C</code> specify the
-report&#39;s format from <code>avr-size</code>. See <code>avr-size --help</code> for other formats.</p>
+<p>Either run it manually with <code>vim.gtk -g</code> instead of <code>gvim</code>.</p>
 
-<h2>Why</h2>
-
-<p>ATMEL microcontrollers have different size of memory (for the program and for
-the RAM). For example the ATtiny13 has 1 Kb for the program and 64 bytes of
-RAM, while the ATtiny85 has 8 Kb for the program and 512 bytes for the RAM.</p>
-
-<p>For those programs who are intended to leave the Arduino platform, to end in a
-microcontroller, knowing the memory size helps to know if it&#39;s interesting
-to spend time and energy to optimise these programs.</p>
+<p>Or use <code>update-alternatives</code> to select which program to run with <code>gvim</code>:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ sudo update-alternatives --config gvim
+</code></pre></div>
+<p>You might prefer to use the graphic version of update-alternatives, <code>galternatives</code>.</p>
 
   <blockquote> Thanks for reading. If you liked this post, you can
-<a href="https://twitter.com/intent/tweet?url=http://xavier.nayrac.eu/2015/08/20/find-the-size-of-an-arduino-program/&text=Find the Size of an Arduino Program&via=lkdjiin" 
+<a href="https://twitter.com/intent/tweet?url=http://xavier.nayrac.eu/2016/11/15/workaround-gvim-bug-debian-sid/&text=Workaround for a Gvim Bug on Debian Sid&via=lkdjiin" 
    target="_blank">
   share it with your followers</a> 
 or even
@@ -188,15 +182,6 @@ or even
     
       <li>
         <h3>
-          <a href="/2016/11/15/workaround-gvim-bug-debian-sid/">
-            Workaround for a Gvim Bug on Debian Sid
-            <small>15 Nov 2016</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
           <a href="/2015/12/14/make-electronic-tea-timer-part-2/">
             Make an electronic tea timer part 2
             <small>14 Dec 2015</small>
@@ -209,6 +194,15 @@ or even
           <a href="/2015/10/28/make-electronic-tea-timer/">
             Make an electronic tea timer
             <small>28 Oct 2015</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2015/10/13/a-quine-n-r-the-return/">
+            A Quine in R - The Return
+            <small>13 Oct 2015</small>
           </a>
         </h3>
       </li>

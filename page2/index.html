@@ -107,13 +107,17 @@
           
         
       
+        
+          
+        
+      
 
       <!-- <a class="sidebar-nav-item" href="/archive/v0.0.1.zip">Download</a> -->
       <!-- <a class="sidebar-nav-item" href="">GitHub project</a> -->
       <!-- <span class="sidebar-nav-item">Currently v0.0.1</span> -->
     </nav>
 
-    <!-- <p>&copy; 2015. All rights reserved.</p> -->
+    <!-- <p>&copy; 2016. All rights reserved.</p> -->
   </div>
 </div>
 
@@ -123,78 +127,119 @@
   
   <div class="post">
     <h1 class="post-title">
-      <a href="/2015/10/28/make-electronic-tea-timer/">
-        Make an electronic tea timer
+      <a href="/2015/12/14/make-electronic-tea-timer-part-2/">
+        Make an electronic tea timer part 2
       </a>
     </h1>
 
-    <span class="post-date">28 Oct 2015</span>
+    <span class="post-date">14 Dec 2015</span>
 
-    <p>Here is a project I&#39;m running for several weeks. The objective was to make my
-first <em>real thing</em>, with the help of an arduino. This thing is an <em>electronic
-tea timer</em>.</p>
+    <p><a href="/2015/10/28/make-electronic-tea-timer/">Read part 1</a></p>
 
-<p><img src="/public/images/hourglass.jpg" class="" /></p>
+<p>Now that I am able to program an ATtiny45 with the help of the Arduino IDE, I
+want to do the same without the IDE. For this, I have to switch from the Arduino language to C, using the <code>avr-gcc</code> cross compiler and the <code>avrdude</code> tool.</p>
 
-<p>A what? Indeed it&#39;s simply a timer. But I think that the term <em>electronic tea
-timer</em> is better, isn&#39;t it ;) When I&#39;m brewing some tea, 9 times out of 10 I
-forget the time limit for the infusion and end up with an undrinkable beverage.
-So I wanted a simple timer with two buttons, a buzzer and a LED.
-A button starts a 3 minute countdown, for green tea, and the other one starts a 5
-minute countdown for black tea. At the end the whole thing makes plenty of
-beeps and blinks until I puts it off. Something really simple, isn&#39;t it?
-But I didn&#39;t want to use a whole arduino in this project, while a 0.60€ tiny
-micro controller might do the trick.</p>
+<p>I will also show you the difference in size between a program written in the
+Arduino language and the same program written in C.</p>
 
-<p>So I would have to learn how to program the ATtiny micro controllers from Atmel.
-Why those ones? Because they are close to the ATmega328, the one into the
-arduino. And I already know some things about this chip.</p>
+<p>The program is for two buttons and two LEDs. Button A turns on or off the LED A and button B turns on or off the LED B. Press a button will change the state of its LED. This program was my <em>hello world!</em></p>
 
-<p>First, I created a prototype of that <em>sound hourglass</em> with the arduino.
-Just to be sure I knew how to do. The schematic could be something like that:</p>
+<p>Here it is in Arduino language (<code>sketch/sketch.ino</code>):</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">pinMode</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
+  <span class="n">pinMode</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
+  <span class="n">digitalWrite</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
+  <span class="n">digitalWrite</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
+  <span class="n">pinMode</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">INPUT_PULLUP</span><span class="p">);</span>
+  <span class="n">pinMode</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">INPUT_PULLUP</span><span class="p">);</span>
+<span class="p">}</span>
 
-<p><img src="/public/images/proto-tea-timer.png" class="" /></p>
+<span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
 
-<p>Finally I use only one LED, but in the prototype there was two. Using this
-prototype I soon realized that a single LED was enough.</p>
+  <span class="k">if</span><span class="p">(</span><span class="n">digitalRead</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="n">LOW</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">delay</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">digitalRead</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">!=</span> <span class="n">HIGH</span><span class="p">)</span> <span class="p">;</span>
+    <span class="n">delay</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+    <span class="n">digitalWrite</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">bitRead</span><span class="p">(</span><span class="n">PORTB</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">^</span> <span class="n">HIGH</span><span class="p">);</span>
+  <span class="p">}</span>
 
-<p>Next step was to make the timer with an ATtiny45. Why this one precisely?
-Because 1) I owned one and 2) there is a plethora of tutorials to program an
-ATtiny45 using an arduino as a programmer. If you are not aware of the term,
-<strong>to program</strong> a micro controller is more or less to transfer its program into its
-memory
-from a computer. For both sides to communicate, one need an interface called a
-<strong>programmer</strong>. There is many ways to do this, I wanted to use an arduino as a
-base programmer, to have nothing new to buy. You&#39;ll find a good tutorial here:
-<a href="http://www.instructables.com/id/Program-an-ATtiny44458485-with-Arduino/">Program an ATtiny44/45/84/85 with Arduino</a>.</p>
+  <span class="k">if</span><span class="p">(</span><span class="n">digitalRead</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">LOW</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">delay</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">digitalRead</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">!=</span> <span class="n">HIGH</span><span class="p">)</span> <span class="p">;</span>
+    <span class="n">delay</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+    <span class="n">digitalWrite</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">bitRead</span><span class="p">(</span><span class="n">PORTB</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">^</span> <span class="n">HIGH</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The folder just contains two sub folders:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ dirtree
+.
+├── build
+└── sketch
+</code></pre></div>
+<p>I compile it with the help of the IDE:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ ~/local/bin/arduino-1.6.5/arduino --verify sketch/sketch.ino
+--pref build.path=build
+Picked up JAVA_TOOL_OPTIONS: 
+Loading configuration...
+Initializing packages...
+Preparing boards...
+Verifying...
+</code></pre></div>
+<p>One can check the size of the executable using <code>avr-size</code>. It&#39;s 972 octets:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ avr-size -d build/sketch.cpp.hex 
+   text    data     bss     dec     hex filename
+      0     972       0     972     3cc build/sketch.cpp.hex
+</code></pre></div>
+<p>Now the same program, but this time written in C (<code>main.c</code>):</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#include &lt;avr/io.h&gt;</span>
+<span class="cp">#define F_CPU 1000000UL</span>
+<span class="cp">#include &lt;util/delay.h&gt;</span>
 
-<p>It was relatively easy to make a programmer for the ATtiny45 using an arduino:</p>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">DDRB</span> <span class="o">|=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span> <span class="o">|</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">;</span>
+  <span class="n">PORTB</span> <span class="o">|=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span> <span class="o">|</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">;</span>
+  <span class="n">DDRB</span> <span class="o">&amp;=</span> <span class="o">~</span><span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span> <span class="o">|</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">PORTB</span> <span class="o">|=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span> <span class="o">|</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">);</span>
 
-<p><img src="/public/images/hello-world-attiny45.png" class="" /></p>
+  <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
 
-<p>As I was going to program a lot of micro controllers, I preferred make a shield.
-First a temporary one:</p>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">PINB</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span><span class="p">)))</span> <span class="p">{</span>
+      <span class="n">_delay_ms</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+      <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">PINB</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span><span class="p">)))</span> <span class="p">;</span>
+      <span class="n">_delay_ms</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+      <span class="n">PORTB</span> <span class="o">^=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">);</span>
+    <span class="p">}</span>
 
-<p><img src="/public/images/arduino-temp-shield.jpg" class="" /></p>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">PINB</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)))</span> <span class="p">{</span>
+      <span class="n">_delay_ms</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+      <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">PINB</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)))</span> <span class="p">;</span>
+      <span class="n">_delay_ms</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+      <span class="n">PORTB</span> <span class="o">^=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The compile tool chain is a bit longer:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ avr-gcc -O -mmcu=attiny45 -c main.c
+$ avr-gcc -mmcu=attiny45 -o main.elf main.o
+$ avr-objcopy -O ihex main.elf main.hex
+</code></pre></div>
+<p>Even with an optimization option at the bare minimum, the difference in size is…
+astronomical:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ avr-size -d main.hex 
+   text    data     bss     dec     hex filename
+      0     158       0     158      9e main.hex
+</code></pre></div>
+<p>To transfer the binary into the micro processor I don&#39;t need the Arduino IDE
+anymore. I put the ATtiny45 on the <a href="/2015/10/28/make-electronic-tea-timer/">programmer shield</a> that I made last time and I use <code>avrdude</code>:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">avrdude -p attiny45 -P /dev/ttyUSB0 -c arduino -U flash:w:main.hex -b 19200
+</code></pre></div>
+<p>Next time I will show you the code for the electronic tea timer, its Makefile,
+and so forth.</p>
 
-<p>Then a permanent:</p>
-
-<p><img src="/public/images/arduino-shield-attiny45.jpg" class="" /></p>
-
-<p>I was too eager to make the shield, so I reversed the direction of the DIP
-socket. That is why the wires are so long: I didn&#39;t want to desolder it. Anyway
-it works fine ;)</p>
-
-<p>So I was able to program an ATtiny45 (4K of ROM) using an arduino <strong>AND</strong> the
-Arduino IDE. It was a good start, but it wasn&#39;t enough. First I didn&#39;t
-want to use the Arduino IDE, for reproducibility and automation issues. And
-then I was pretty sure that the code of my <em>tea timer</em> could fit into an
-ATtiny13, who have only 1K of ROM, and is almost two times cheaper than an
-ATtiny45.</p>
-
-<p>To be continued…</p>
-
-<p><a href="/2015/12/14/make-electronic-tea-timer-part-2/">Read part 2</a></p>
+<p><a href="/2015/10/28/make-electronic-tea-timer/">Read part 1</a></p>
 
   </div>
   
