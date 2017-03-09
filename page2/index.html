@@ -111,13 +111,17 @@
           
         
       
+        
+          
+        
+      
 
       <!-- <a class="sidebar-nav-item" href="/archive/v0.0.1.zip">Download</a> -->
       <!-- <a class="sidebar-nav-item" href="">GitHub project</a> -->
       <!-- <span class="sidebar-nav-item">Currently v0.0.1</span> -->
     </nav>
 
-    <!-- <p>&copy; 2016. All rights reserved.</p> -->
+    <!-- <p>&copy; 2017. All rights reserved.</p> -->
   </div>
 </div>
 
@@ -127,119 +131,51 @@
   
   <div class="post">
     <h1 class="post-title">
-      <a href="/2015/12/14/make-electronic-tea-timer-part-2/">
-        Make an electronic tea timer part 2
+      <a href="/2016/11/15/workaround-gvim-bug-debian-sid/">
+        Workaround for a Gvim Bug on Debian Sid
       </a>
     </h1>
 
-    <span class="post-date">14 Dec 2015</span>
+    <span class="post-date">15 Nov 2016</span>
 
-    <p><a href="/2015/10/28/make-electronic-tea-timer/">Read part 1</a></p>
+    <p>Since an update of the gtk3 lib, there is a bug with the <code>gvim</code> command on
+Debian Sid (and possibly other systems too).</p>
 
-<p>Now that I am able to program an ATtiny45 with the help of the Arduino IDE, I
-want to do the same without the IDE. For this, I have to switch from the Arduino language to C, using the <code>avr-gcc</code> cross compiler and the <code>avrdude</code> tool.</p>
+<h2>The Bug</h2>
 
-<p>I will also show you the difference in size between a program written in the
-Arduino language and the same program written in C.</p>
+<p>Gvim is unusable! We you run the program you get this message, repeated many times:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ gvim
 
-<p>The program is for two buttons and two LEDs. Button A turns on or off the LED A and button B turns on or off the LED B. Press a button will change the state of its LED. This program was my <em>hello world!</em></p>
-
-<p>Here it is in Arduino language (<code>sketch/sketch.ino</code>):</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
-  <span class="n">pinMode</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
-  <span class="n">pinMode</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
-  <span class="n">digitalWrite</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
-  <span class="n">digitalWrite</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
-  <span class="n">pinMode</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">INPUT_PULLUP</span><span class="p">);</span>
-  <span class="n">pinMode</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">INPUT_PULLUP</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
-
-  <span class="k">if</span><span class="p">(</span><span class="n">digitalRead</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="n">LOW</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">delay</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">digitalRead</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">!=</span> <span class="n">HIGH</span><span class="p">)</span> <span class="p">;</span>
-    <span class="n">delay</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
-    <span class="n">digitalWrite</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">bitRead</span><span class="p">(</span><span class="n">PORTB</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">^</span> <span class="n">HIGH</span><span class="p">);</span>
-  <span class="p">}</span>
-
-  <span class="k">if</span><span class="p">(</span><span class="n">digitalRead</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">LOW</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">delay</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">digitalRead</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">!=</span> <span class="n">HIGH</span><span class="p">)</span> <span class="p">;</span>
-    <span class="n">delay</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
-    <span class="n">digitalWrite</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">bitRead</span><span class="p">(</span><span class="n">PORTB</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">^</span> <span class="n">HIGH</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>The folder just contains two sub folders:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">$ dirtree
+(gvim:6054): Gtk-CRITICAL **: gtk_widget_set_size_request: assertion &#39;width &gt;= -1&#39; failed
+*** BUG ***
+In pixman_region32_init_rect: Invalid rectangle passed
+Set a breakpoint on &#39;_pixman_log_error&#39; to debug
 .
-├── build
-└── sketch
+.
+.
 </code></pre></div>
-<p>I compile it with the help of the IDE:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">$ ~/local/bin/arduino-1.6.5/arduino --verify sketch/sketch.ino
---pref build.path=build
-Picked up JAVA_TOOL_OPTIONS: 
-Loading configuration...
-Initializing packages...
-Preparing boards...
-Verifying...
-</code></pre></div>
-<p>One can check the size of the executable using <code>avr-size</code>. It&#39;s 972 octets:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">$ avr-size -d build/sketch.cpp.hex 
-   text    data     bss     dec     hex filename
-      0     972       0     972     3cc build/sketch.cpp.hex
-</code></pre></div>
-<p>Now the same program, but this time written in C (<code>main.c</code>):</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#include &lt;avr/io.h&gt;</span>
-<span class="cp">#define F_CPU 1000000UL</span>
-<span class="cp">#include &lt;util/delay.h&gt;</span>
+<p>The bug will eventually be fixed either by the vim part or by the gtk3 part.
+But in the meantime, what do we do?</p>
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">DDRB</span> <span class="o">|=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span> <span class="o">|</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">;</span>
-  <span class="n">PORTB</span> <span class="o">|=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span> <span class="o">|</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">;</span>
-  <span class="n">DDRB</span> <span class="o">&amp;=</span> <span class="o">~</span><span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span> <span class="o">|</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">);</span>
-  <span class="n">PORTB</span> <span class="o">|=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span> <span class="o">|</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">);</span>
+<h2>A Workaround</h2>
 
-  <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+<p>The program called by <code>gvim</code> is <code>vim.gtk3</code>, as you can see:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>which gvim
+/usr/bin/gvim
+<span class="nv">$ </span>ls -l /usr/bin/gvim
+<span class="o">[</span>...<span class="o">]</span> /usr/bin/gvim -&gt; /etc/alternatives/gvim*
+<span class="nv">$ </span>ls -l /etc/alternatives/gvim
+<span class="o">[</span>...<span class="o">]</span> /etc/alternatives/gvim -&gt; /usr/bin/vim.gtk3*
+</code></pre></div>
+<p>So we can use the «old» version <code>vim.gtk</code>. You maybe have to install it with
+<code>apt-get install vim-gtk</code>.</p>
 
-    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">PINB</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span><span class="p">)))</span> <span class="p">{</span>
-      <span class="n">_delay_ms</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
-      <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">PINB</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span><span class="p">)))</span> <span class="p">;</span>
-      <span class="n">_delay_ms</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
-      <span class="n">PORTB</span> <span class="o">^=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">);</span>
-    <span class="p">}</span>
+<p>Either run it manually with <code>vim.gtk -g</code> instead of <code>gvim</code>.</p>
 
-    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">PINB</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)))</span> <span class="p">{</span>
-      <span class="n">_delay_ms</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
-      <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">PINB</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)))</span> <span class="p">;</span>
-      <span class="n">_delay_ms</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
-      <span class="n">PORTB</span> <span class="o">^=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">);</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<p>Or use <code>update-alternatives</code> to select which program to run with <code>gvim</code>:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ sudo update-alternatives --config gvim
 </code></pre></div>
-<p>The compile tool chain is a bit longer:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">$ avr-gcc -O -mmcu=attiny45 -c main.c
-$ avr-gcc -mmcu=attiny45 -o main.elf main.o
-$ avr-objcopy -O ihex main.elf main.hex
-</code></pre></div>
-<p>Even with an optimization option at the bare minimum, the difference in size is…
-astronomical:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">$ avr-size -d main.hex 
-   text    data     bss     dec     hex filename
-      0     158       0     158      9e main.hex
-</code></pre></div>
-<p>To transfer the binary into the micro processor I don&#39;t need the Arduino IDE
-anymore. I put the ATtiny45 on the <a href="/2015/10/28/make-electronic-tea-timer/">programmer shield</a> that I made last time and I use <code>avrdude</code>:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">avrdude -p attiny45 -P /dev/ttyUSB0 -c arduino -U flash:w:main.hex -b 19200
-</code></pre></div>
-<p>Next time I will show you the code for the electronic tea timer, its Makefile,
-and so forth.</p>
-
-<p><a href="/2015/10/28/make-electronic-tea-timer/">Read part 1</a></p>
+<p>You might prefer to use the graphic version of update-alternatives, <code>galternatives</code>.</p>
 
   </div>
   

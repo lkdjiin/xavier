@@ -11,7 +11,7 @@
 
   <title>
     
-      A Quine in R - The Return &middot; Xavier Nayrac
+      Fish : completion and execution in just one time &middot; Xavier Nayrac
     
   </title>
 
@@ -128,49 +128,45 @@
 
     <div class="content container">
       <div class="post">
-  <h1 class="post-title">A Quine in R - The Return</h1>
-  <span class="post-date">13 Oct 2015</span>
-  <p>In the previous post <a href="http://xavier.nayrac.eu/2015/10/10/a-quine-in-r/">A Quine In R</a>
-I presented a <a href="https://en.wikipedia.org/wiki/Quine_%28computing%29">quine</a>
-in the R programming language. The code was a little bit long for the task, 19 lines, mainly
-compared to the Ruby code from the original post:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">puts </span><span class="se">\&quot;</span><span class="s2">src = </span><span class="se">\&quot;</span><span class="s2"> + src.inspect + src&quot;</span>
-<span class="nb">puts</span> <span class="s2">&quot;src = &quot;</span> <span class="o">+</span> <span class="n">src</span><span class="o">.</span><span class="n">inspect</span> <span class="o">+</span> <span class="n">src</span>
-</code></pre></div>
-<p>In Ruby, the code is short thanks to the method <code>inspect</code>, who automatically
-escape the non printable characters and the quotes:</p>
-<div class="highlight"><pre><code class="language-irb" data-lang="irb"><span class="gp">&gt;&gt; </span><span class="n">foo</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">puts </span><span class="se">\&quot;</span><span class="s2">src</span><span class="se">\&quot;</span><span class="s2">&quot;</span>
-<span class="go">&quot;\nputs \&quot;src\&quot;&quot;</span>
-<span class="gp">&gt;&gt; </span><span class="n">foo</span><span class="o">.</span><span class="n">inspect</span>
-<span class="go">&quot;\&quot;\\nputs \\\&quot;src\\\&quot;\&quot;&quot;</span>
-</code></pre></div>
-<p>Naturally I searched for a similar function in R, at least for the strings.
-I gave up after fifteen minutes of unsuccessful search, and I wrote
-<a href="http://xavier.nayrac.eu/2015/10/10/a-quine-in-r/">the 19 lines of code</a>
-from the previous post.</p>
+  <h1 class="post-title">Fish : completion and execution in just one time</h1>
+  <span class="post-date">09 Mar 2017</span>
+  <p>Here is a tip for Fish, <a href="https://fishshell.com/">the friendly shell</a>, to complete a command line a execute it in just one time.</p>
 
-<p>At this moment, Hadley Wickham kindly suggested to use the function
-<code>encodeString</code>. That&#39;s what I had been looking for, without finding it.
-With the help of this function, a quine in R is really shorter. Not as
-short as the Ruby version, but, anyway, it&#39;s shorter:</p>
-<div class="highlight"><pre><code class="language-r" data-lang="r">src <span class="o">&lt;-</span> <span class="s">&quot;\nwriteLines(c(paste(\&quot;src &lt;-\&quot;, encodeString(src, quote=&#39;\&quot;&#39;)), src))&quot;</span>
+<h2>Default behavior : completion then execution</h2>
 
-<span class="kp">writeLines</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="kp">paste</span><span class="p">(</span><span class="s">&quot;src &lt;-&quot;</span><span class="p">,</span> <span class="kp">encodeString</span><span class="p">(</span>src<span class="p">,</span> quote<span class="o">=</span><span class="s">&#39;&quot;&#39;</span><span class="p">)),</span> src<span class="p">))</span>
-</code></pre></div>
-<p>I like this version, so I add it on <a href="http://rosettacode.org/wiki/Quine#R">rosettacode.org</a>.</p>
+<p>Fish offers automatic completion as long as you&#39;re typing a command.
+In the following screenshot, the grey part has not been typed yet. It is only
+suggested by Fish.</p>
 
-<p>Like I said previously, it&#39;s good to use <code>diff</code> to assure yourself that you
-really wrote a quine ;)</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">diff -u quine2.r &lt;<span class="o">(</span>Rscript quine2.r<span class="o">)</span>
-</code></pre></div>
-<p>And the result is:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">$ Rscript quine3.r
-src &lt;- &quot;\nwriteLines(c(paste(\&quot;src &lt;-\&quot;, encodeString(src, quote=&#39;\&quot;&#39;)), src))&quot;
+<p><img src="/public/images/fish-shell-before-completion.png" class="" /></p>
 
-writeLines(c(paste(&quot;src &lt;-&quot;, encodeString(src, quote=&#39;&quot;&#39;)), src))
+<p>To accept the suggestion, one have to use the keyboard shortcut Ctrl+F. Then the cursor moves to the end of the line.</p>
+
+<p><img src="/public/images/fish-shell-after-completion.png" class="" /></p>
+
+<p>Finally one can push Enter to run the command.</p>
+
+<h1>And now a single shortcut</h1>
+
+<p>Fish&#39;s automatic completion is very good. But this two-step behavior, Ctrl+F then Enter, quickly exasperated me.
+So I wanted to reduce it to a single shortcut : Ctrl+G.
+Of course you can choose another key combination (I choose G because it reminds me «Go!»).</p>
+
+<p>You need to create a function named <code>fish_user_key_bindings</code>, or add the following code to it if it already exists.
+Put this function in the file <code>~/.config/fish/functions/fish_user_key_bindings.fish</code>.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">function fish_user_key_bindings
+
+    # Ctrl+g (Go!). Like Ctrl+f Enter in one go.
+    bind \cg accept-autosuggestion execute
+
+end
 </code></pre></div>
+<p><em>Et voilà !</em>. It&#39;s only a line of code but I could not live without it.</p>
+
+<p>If you too have a Fish&#39;s tip, please share it in a comment below and thank you in advance.</p>
+
   <blockquote> Thanks for reading. If you liked this post, you can
-<a href="https://twitter.com/intent/tweet?url=http://xavier.nayrac.eu/2015/10/13/a-quine-n-r-the-return/&text=A Quine in R - The Return&via=lkdjiin" 
+<a href="https://twitter.com/intent/tweet?url=http://xavier.nayrac.eu/2017/03/09/fish-completion-and-execution-in-just-one-time/&text=Fish : completion and execution in just one time&via=lkdjiin" 
    target="_blank">
   share it with your followers</a> 
 or even
@@ -186,15 +182,6 @@ or even
     
       <li>
         <h3>
-          <a href="/2017/03/09/fish-completion-and-execution-in-just-one-time/">
-            Fish : completion and execution in just one time
-            <small>09 Mar 2017</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
           <a href="/2016/11/15/workaround-gvim-bug-debian-sid/">
             Workaround for a Gvim Bug on Debian Sid
             <small>15 Nov 2016</small>
@@ -207,6 +194,15 @@ or even
           <a href="/2015/12/14/make-electronic-tea-timer-part-2/">
             Make an electronic tea timer part 2
             <small>14 Dec 2015</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2015/10/28/make-electronic-tea-timer/">
+            Make an electronic tea timer
+            <small>28 Oct 2015</small>
           </a>
         </h3>
       </li>

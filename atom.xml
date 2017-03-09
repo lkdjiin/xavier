@@ -4,13 +4,55 @@
  <title>Xavier Nayrac</title>
  <link href="http://xavier.nayrac.eu/atom.xml" rel="self"/>
  <link href="http://xavier.nayrac.eu/"/>
- <updated>2016-11-15T10:34:53+01:00</updated>
+ <updated>2017-03-09T14:07:43+01:00</updated>
  <id>http://xavier.nayrac.eu</id>
  <author>
    <name>Xavier Nayrac</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>Fish : completion and execution in just one time</title>
+   <link href="http://xavier.nayrac.eu/2017/03/09/fish-completion-and-execution-in-just-one-time/"/>
+   <updated>2017-03-09T00:00:00+01:00</updated>
+   <id>http://xavier.nayrac.eu/2017/03/09/fish-completion-and-execution-in-just-one-time</id>
+   <content type="html">&lt;p&gt;Here is a tip for Fish, &lt;a href=&quot;https://fishshell.com/&quot;&gt;the friendly shell&lt;/a&gt;, to complete a command line a execute it in just one time.&lt;/p&gt;
+
+&lt;h2&gt;Default behavior : completion then execution&lt;/h2&gt;
+
+&lt;p&gt;Fish offers automatic completion as long as you&amp;#39;re typing a command.
+In the following screenshot, the grey part has not been typed yet. It is only
+suggested by Fish.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/images/fish-shell-before-completion.png&quot; class=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;To accept the suggestion, one have to use the keyboard shortcut Ctrl+F. Then the cursor moves to the end of the line.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/images/fish-shell-after-completion.png&quot; class=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Finally one can push Enter to run the command.&lt;/p&gt;
+
+&lt;h1&gt;And now a single shortcut&lt;/h1&gt;
+
+&lt;p&gt;Fish&amp;#39;s automatic completion is very good. But this two-step behavior, Ctrl+F then Enter, quickly exasperated me.
+So I wanted to reduce it to a single shortcut : Ctrl+G.
+Of course you can choose another key combination (I choose G because it reminds me «Go!»).&lt;/p&gt;
+
+&lt;p&gt;You need to create a function named &lt;code&gt;fish_user_key_bindings&lt;/code&gt;, or add the following code to it if it already exists.
+Put this function in the file &lt;code&gt;~/.config/fish/functions/fish_user_key_bindings.fish&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;function fish_user_key_bindings
+
+    # Ctrl+g (Go!). Like Ctrl+f Enter in one go.
+    bind \cg accept-autosuggestion execute
+
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;em&gt;Et voilà !&lt;/em&gt;. It&amp;#39;s only a line of code but I could not live without it.&lt;/p&gt;
+
+&lt;p&gt;If you too have a Fish&amp;#39;s tip, please share it in a comment below and thank you in advance.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Workaround for a Gvim Bug on Debian Sid</title>

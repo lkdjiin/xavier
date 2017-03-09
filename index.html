@@ -111,13 +111,17 @@
           
         
       
+        
+          
+        
+      
 
       <!-- <a class="sidebar-nav-item" href="/archive/v0.0.1.zip">Download</a> -->
       <!-- <a class="sidebar-nav-item" href="">GitHub project</a> -->
       <!-- <span class="sidebar-nav-item">Currently v0.0.1</span> -->
     </nav>
 
-    <!-- <p>&copy; 2016. All rights reserved.</p> -->
+    <!-- <p>&copy; 2017. All rights reserved.</p> -->
   </div>
 </div>
 
@@ -127,51 +131,47 @@
   
   <div class="post">
     <h1 class="post-title">
-      <a href="/2016/11/15/workaround-gvim-bug-debian-sid/">
-        Workaround for a Gvim Bug on Debian Sid
+      <a href="/2017/03/09/fish-completion-and-execution-in-just-one-time/">
+        Fish : completion and execution in just one time
       </a>
     </h1>
 
-    <span class="post-date">15 Nov 2016</span>
+    <span class="post-date">09 Mar 2017</span>
 
-    <p>Since an update of the gtk3 lib, there is a bug with the <code>gvim</code> command on
-Debian Sid (and possibly other systems too).</p>
+    <p>Here is a tip for Fish, <a href="https://fishshell.com/">the friendly shell</a>, to complete a command line a execute it in just one time.</p>
 
-<h2>The Bug</h2>
+<h2>Default behavior : completion then execution</h2>
 
-<p>Gvim is unusable! We you run the program you get this message, repeated many times:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">$ gvim
+<p>Fish offers automatic completion as long as you&#39;re typing a command.
+In the following screenshot, the grey part has not been typed yet. It is only
+suggested by Fish.</p>
 
-(gvim:6054): Gtk-CRITICAL **: gtk_widget_set_size_request: assertion &#39;width &gt;= -1&#39; failed
-*** BUG ***
-In pixman_region32_init_rect: Invalid rectangle passed
-Set a breakpoint on &#39;_pixman_log_error&#39; to debug
-.
-.
-.
+<p><img src="/public/images/fish-shell-before-completion.png" class="" /></p>
+
+<p>To accept the suggestion, one have to use the keyboard shortcut Ctrl+F. Then the cursor moves to the end of the line.</p>
+
+<p><img src="/public/images/fish-shell-after-completion.png" class="" /></p>
+
+<p>Finally one can push Enter to run the command.</p>
+
+<h1>And now a single shortcut</h1>
+
+<p>Fish&#39;s automatic completion is very good. But this two-step behavior, Ctrl+F then Enter, quickly exasperated me.
+So I wanted to reduce it to a single shortcut : Ctrl+G.
+Of course you can choose another key combination (I choose G because it reminds me «Go!»).</p>
+
+<p>You need to create a function named <code>fish_user_key_bindings</code>, or add the following code to it if it already exists.
+Put this function in the file <code>~/.config/fish/functions/fish_user_key_bindings.fish</code>.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">function fish_user_key_bindings
+
+    # Ctrl+g (Go!). Like Ctrl+f Enter in one go.
+    bind \cg accept-autosuggestion execute
+
+end
 </code></pre></div>
-<p>The bug will eventually be fixed either by the vim part or by the gtk3 part.
-But in the meantime, what do we do?</p>
+<p><em>Et voilà !</em>. It&#39;s only a line of code but I could not live without it.</p>
 
-<h2>A Workaround</h2>
-
-<p>The program called by <code>gvim</code> is <code>vim.gtk3</code>, as you can see:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>which gvim
-/usr/bin/gvim
-<span class="nv">$ </span>ls -l /usr/bin/gvim
-<span class="o">[</span>...<span class="o">]</span> /usr/bin/gvim -&gt; /etc/alternatives/gvim*
-<span class="nv">$ </span>ls -l /etc/alternatives/gvim
-<span class="o">[</span>...<span class="o">]</span> /etc/alternatives/gvim -&gt; /usr/bin/vim.gtk3*
-</code></pre></div>
-<p>So we can use the «old» version <code>vim.gtk</code>. You maybe have to install it with
-<code>apt-get install vim-gtk</code>.</p>
-
-<p>Either run it manually with <code>vim.gtk -g</code> instead of <code>gvim</code>.</p>
-
-<p>Or use <code>update-alternatives</code> to select which program to run with <code>gvim</code>:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">$ sudo update-alternatives --config gvim
-</code></pre></div>
-<p>You might prefer to use the graphic version of update-alternatives, <code>galternatives</code>.</p>
+<p>If you too have a Fish&#39;s tip, please share it in a comment below and thank you in advance.</p>
 
   </div>
   
